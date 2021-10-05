@@ -230,6 +230,7 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
 #vscode
 .vscode/*
 !.vscode/settings.json
@@ -239,4 +240,4 @@ _Pvt_Extensions
 *.code-workspace
 
 # Local History for Visual Studio Code
-.history/
+.history/ 
