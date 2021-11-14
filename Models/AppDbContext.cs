@@ -8,6 +8,9 @@ namespace Spotify_clone2.Models
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
-    
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=localhost;Database=spotfy;Trusted_Connection=True;");
+        }
     }
 }
