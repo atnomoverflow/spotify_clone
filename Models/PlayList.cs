@@ -7,7 +7,7 @@ namespace Spotify_clone2.Models
 {
     public class PlayList
     {
-        private int idPlayList { get; set; }
-        private ICollection<Song> songs { get; set; }
+        public int PlayListId { get; set; }
+        public ICollection<Song> songs { get; set; }
     }
 }

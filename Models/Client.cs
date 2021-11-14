@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace Spotify_clone2.Models
 {
-    public enum Roles
+
+    public class Client : User
     {
-        ROLE_ADMIN,
-        ROLE_USER
+        public int ClientId { get; set; }
+        public ICollection<PlayList> PlayLists { get; set; }
     }
 }

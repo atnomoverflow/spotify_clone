@@ -7,9 +7,9 @@ namespace Spotify_clone2.Models
 {
     public class Category
     {
-        private int idCat { get; set; }
-        private string designation { get; set; }
-        private string description { get; set; }
-        private ICollection<Song> songs { get; set; }
+        public int CategoryId { get; set; }
+        public string designation { get; set; }
+        public string description { get; set; }
+        public ICollection<Song> songs { get; set; }
     }
 }

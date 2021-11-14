@@ -14,6 +14,5 @@ namespace Spotify_clone2.Models
         public string Prenom { get; set; }
         [PersonalData]
         public DateTime DOB { get; set; }
-        public Roles role { get; set; }
     }
 }
