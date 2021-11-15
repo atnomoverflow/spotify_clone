@@ -3,58 +3,61 @@
     ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/_RegisterLayout.cshtml";
 }
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+    <div class="card card0 border-0">
 
-<div class="card card0 border-0">
-    <h1>Register</h1>
-    <div class="row d-flex">
-        <div class="col-lg-6">
-            <div class="card1 pb-5">
-                <div class="row"> <img src="https://i.imgur.com/CXQmsmF.png" class="logo"> </div>
-                <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img
-                        src="https://i.imgur.com/uNGdWHi.png" class="image"> </div>
+        <div class="row d-flex">
+            <div class="col-lg-6">
+                <div class="card1 pb-5">
+                    <div class="row"> <img src="https://i.imgur.com/CXQmsmF.png" class="logo"> </div>
+                    <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
+                        <img src="https://i.imgur.com/uNGdWHi.png" class="image">
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="card2 card border-0 px-4 py-5">
-                <form method="post">
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                    <div class="row px-3">
-                        <label asp-for="Email" class="mb-0 text-sm"></label>
-                        <input asp-for="Email" class="mb-4" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                    <div class="row px-3">
-                        <label asp-for="Nom" class="mb-0 text-sm"></label>
-                        <input asp-for="Nom" class="mb-4" />
-                        <span asp-validation-for="Nom" class="text-danger"></span>
-                    </div>
+            <div class="col-lg-6">
+                <div class="card2 card border-0 px-4 py-5">
+                    <form method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="row px-3">
+                            <label asp-for="Email" class="mb-0 text-sm"></label>
+                            <input asp-for="Email" class="mb-4" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="row px-3">
+                            <label asp-for="Nom" class="mb-0 text-sm"></label>
+                            <input asp-for="Nom" class="mb-4" />
+                            <span asp-validation-for="Nom" class="text-danger"></span>
+                        </div>
 
-                    <div class="row px-3">
-                        <label asp-for="Prenom" class="mb-0 text-sm"></label>
-                        <input asp-for="Prenom" class="mb-4" />
-                        <span asp-validation-for="Prenom" class="text-danger"></span>
-                    </div>
-                    <div class="row px-3">
-                        <label asp-for="DOB" class="mb-0 text-sm">Birthday</label>
-                        <input asp-for="DOB" class="mb-4" />
-                        <span asp-validation-for="DOB" class="text-danger"></span>
-                    </div>
-                    <div class="row px-3">
-                        <label asp-for="Password" class="mb-0 text-sm"></label>
-                        <input asp-for="Password" class="mb-4" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
-                    <div class="row px-3">
-                        <label asp-for="ConfirmPassword" class="mb-0 text-sm"></label>
-                        <input asp-for="ConfirmPassword" class="mb-4" />
-                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                    </div>
+                        <div class="row px-3">
+                            <label asp-for="Prenom" class="mb-0 text-sm"></label>
+                            <input asp-for="Prenom" class="mb-4" />
+                            <span asp-validation-for="Prenom" class="text-danger"></span>
+                        </div>
+                        <div class="row px-3">
+                            <label asp-for="DOB" class="mb-0 text-sm">Birthday</label>
+                            <input asp-for="DOB" class="mb-4" />
+                            <span asp-validation-for="DOB" class="text-danger"></span>
+                        </div>
+                        <div class="row px-3">
+                            <label asp-for="Password" class="mb-0 text-sm"></label>
+                            <input asp-for="Password" class="mb-4" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="row px-3">
+                            <label asp-for="ConfirmPassword" class="mb-0 text-sm"></label>
+                            <input asp-for="ConfirmPassword" class="mb-4" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
 
-                    <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center">Register</button>
-                    </div>
+                        <div class="row mb-3 px-3">
+                            <button type="submit" class="btn btn-blue text-center">Register</button>
+                        </div>
 
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    </div>
