@@ -51,8 +51,15 @@
             <a href="#" class="hr-btn">Help</a>
             <span>|</span>
             <div class="user-panel">
-                <a href="" class="login">Login</a>
-                <a href="" class="register">Create an account</a>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink("Login", "login", "Account", null, new { @class = "login" })
+                    @Html.ActionLink("Create an account", "register", "Account", null, new { @class = "register" })
+                }
+                else
+                {
+                    @Html.ActionLink("Logout", "logout", "Account", null, new { @class = "login" })
+                }
             </div>
         </div>
         <ul class="main-menu">
