@@ -6,14 +6,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Spotify_clone2.Models;
+using Microsoft.AspNetCore.Authorization;
+
 namespace Spotify_clone2.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        public AccountController(UserManager<User> userManager,
-                              SignInManager<User> signInManager)
+        private readonly UserManager<Client> _userManager;
+        private readonly SignInManager<Client> _signInManager;
+        public AccountController(UserManager<Client> userManager,
+                              SignInManager<Client> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -35,10 +37,12 @@ namespace Spotify_clone2.Controllers
             if (ModelState.IsValid)
             {
 
-                var user = new User
+                var user = new Client
                 {
                     UserName = model.Email,
                     Email = model.Email,
+                    Nom = model.Nom,
+                    Prenom = model.Prenom
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -60,5 +64,17 @@ namespace Spotify_clone2.Controllers
             }
             return View(model);
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+
+
+
+
     }
 }

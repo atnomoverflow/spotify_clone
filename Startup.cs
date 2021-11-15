@@ -25,7 +25,7 @@ namespace Spotify_clone2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>();
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<Client, IdentityRole>()
             .AddEntityFrameworkStores<AppDbContext>();
             services.AddControllersWithViews();
         }
