@@ -48,8 +48,6 @@
             <img src="img/logo.png" alt="">
         </a>
         <div class="header-right">
-            <a href="#" class="hr-btn">Help</a>
-            <span>|</span>
             <div class="user-panel">
                 @if (!User.Identity.IsAuthenticated)
                 {
@@ -63,19 +61,11 @@
             </div>
         </div>
         <ul class="main-menu">
-            <li><a href="index.html">Home</a></li>
+            <li>@Html.ActionLink("Home", "index", "Home", null, new { })</li>
             <li><a href="#">About</a></li>
-            <li><a href="#">Pages</a>
-                <ul class="sub-menu">
-                    <li><a href="category.html">Category</a></li>
-                    <li><a href="playlist.html">Playlist</a></li>
-                    <li><a href="artist.html">Artist</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </li>
-            <li><a href="blog.html">News</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li>@Html.ActionLink("Premuim", "index", "premium", null, new { })</li>
+            <li><a href="#">contact</a></li>
+
         </ul>
     </header>
     <!-- Header section end -->
