@@ -515,13 +515,11 @@ after auth
 }
 
 .hHufoi {
-	padding-top: 182px;
 	padding-bottom: 132px;
 }
 
 @media (min-width: 1200px) {
 	.hHufoi {
-		padding-top: 80px;
 		padding-bottom: 0px;
 	}
 }
@@ -668,7 +666,7 @@ after auth
 	}
 }
 
-.eJVJbS {
+.passPrem {
 	box-sizing: border-box;
 	font-family: spotify-circular, Helvetica, Arial, sans-serif;
 	-webkit-tap-highlight-color: transparent;
@@ -937,6 +935,172 @@ after auth
 }
 
 
+
+
+
+.eJVJbS {
+	box-sizing: border-box;
+	font-family: spotify-circular, Helvetica, Arial, sans-serif;
+	-webkit-tap-highlight-color: transparent;
+	display: block;
+	padding: 0px 0px 1em;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20px;
+	letter-spacing: 0.25px;
+	color: inherit;
+}
+
+.kvHAyu {
+	font-size: calc(24px + 8 * ((100vw - 320px) / 160));
+	line-height: 1.2;
+	letter-spacing: -0.02em;
+	margin: 0px 0px 8px;
+	padding: 0px;
+	font-weight: 900;
+	text-align: center;
+}
+
+@media (min-width: 1200px) {
+	.kvHAyu {
+		text-align: start;
+	}
+}
+
+@media (min-width: 768px) {
+	.kvHAyu {
+		font-size: 60px;
+		min-width: 372px;
+	}
+}
+
+@media (min-width: 480px) {
+	.kvHAyu {}
+}
+
+.cILGdH {
+	padding: 48px 0px;
+	display: flex;
+	flex-direction: column;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: justify;
+	justify-content: space-between;
+	-webkit-font-smoothing: antialiased;
+}
+
+@media (min-width: 1200px) {
+	.cILGdH {
+		padding: 64px 0px;
+		align-items: flex-start;
+	}
+}
+
+.biCrdv {
+	margin: 16px 0px;
+	font-size: 18px;
+	line-height: 1.5;
+	font-weight: 400;
+	text-align: center;
+}
+
+@media (min-width: 768px) {
+	.biCrdv {
+		margin: 32px 0px 0px;
+		padding: 0px;
+		font-size: 24px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.biCrdv {
+		text-align: start;
+		max-width: 558px;
+	}
+}
+
+.iNRzte {
+	-webkit-box-pack: center;
+	justify-content: center;
+	text-decoration: none !important;
+}
+
+.iEwfBs {
+	margin: 0px;
+	box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+	.iEwfBs {
+		margin: 48px 0px 0px;
+	}
+}
+
+.fevbWz {
+	display: flex;
+	-webkit-box-align: center;
+	align-items: center;
+	background-color: var(--background-base, #1ed760);
+	color: var(--text-base, #000000);
+	border-radius: 500px;
+	font-size: inherit;
+	padding: 17px 48px;
+	--background-base: #1ED760 !important;
+	--background-highlight: #2DE26D !important;
+	--background-press: #43E57D !important;
+	--background-elevated-base: #1ED760 !important;
+	--background-elevated-highlight: #2DE26D !important;
+	--background-elevated-press: #43E57D !important;
+	--background-tinted-base: #1ED760 !important;
+	--background-tinted-highlight: #2DE26D !important;
+	--background-tinted-press: #43E57D !important;
+	--background-unsafe-for-small-text-base: #1ED760 !important;
+	--background-unsafe-for-small-text-highlight: #2DE26D !important;
+	--background-unsafe-for-small-text-press: #43E57D !important;
+	--text-base: #2941AB !important;
+	--text-subdued: #2941AB !important;
+	--text-bright-accent: #2941AB !important;
+	--text-negative: #2941AB !important;
+	--text-warning: #2941AB !important;
+	--text-positive: #2941AB !important;
+	--text-announcement: #2941AB !important;
+	--essential-base: #2941AB !important;
+	--essential-subdued: #2941AB !important;
+	--essential-bright-accent: #2941AB !important;
+	--essential-negative: #2941AB !important;
+	--essential-warning: #2941AB !important;
+	--essential-positive: #2941AB !important;
+	--essential-announcement: #2941AB !important;
+	--decorative-base: #2941AB !important;
+	--decorative-subdued: #2941AB !important;
+}
+
+.kNMnkF {
+	box-sizing: border-box;
+	font-family: spotify-circular, Helvetica, Arial, sans-serif;
+	-webkit-tap-highlight-color: transparent;
+	background-color: transparent;
+	border: 0px;
+	border-radius: 500px;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: 700;
+	letter-spacing: 2px;
+	line-height: 1;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	touch-action: manipulation;
+	transition-duration: 33ms;
+	transition-property: background-color, border-color, color, box-shadow, filter, transform;
+	user-select: none;
+	vertical-align: middle;
+	transform: translate3d(0px, 0px, 0px);
+	align-self: center;
+	padding: 0px;
+}
 
 /* ----------------
 How section
