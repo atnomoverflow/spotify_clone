@@ -113,7 +113,9 @@ else
                         <br>
                         <h6>Écoutez le meilleur des dernières sorties.</h6>
                         <br>
-                        <a href="#" class="site-btn sb-c6">Ouvrir le lecteur web</a>
+
+                        @Html.ActionLink("Ouvrir le lecteur web", "index", "WebPlayer", null, new { @class = "site-btn sb-c6" })
+                        
                     </div>
                 </div>
             </div>

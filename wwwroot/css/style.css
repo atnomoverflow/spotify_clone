@@ -1394,6 +1394,13 @@ Responsive
 	.container {
 		max-width: 1176px;
 	}
+	.row {
+		flex-direction: column-reverse;
+	}
+
+	.col-25 {
+		margin-bottom: 20px;
+	}
 }
 
 /* Medium screen : 992px. */
