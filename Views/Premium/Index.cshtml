@@ -1,3 +1,6 @@
+@using Microsoft.Extensions.Options
+@inject IOptions<Spotify_clone2.Configuration.StripeOptions> Stripe
+
 @{
     ViewData["Title"] = "Premuim Page";
 }
@@ -16,7 +19,11 @@
                         facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                         incididunt ut labore et dolore magna aliqua.
                     </p>
-                    @Html.ActionLink("Try it now", "payment", "Premium", null, new { @class = "site-btn" })
+               
+                    <form asp-action="CreateCheckoutSession" asp-controller="Payments" method="post">
+                        <button type="submit" class="site-btn">Try it Know</button>
+                    </form>
+
                 </div>
             </div>
             <div class="col-lg-6">

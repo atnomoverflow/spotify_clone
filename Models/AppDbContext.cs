@@ -18,7 +18,8 @@ namespace Spotify_clone2.Models
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=localhost;Database=spotify;User Id=sa;Password=Asefb@101;");
+            // optionsBuilder.UseSqlServer(@"Server=localhost;Database=spotify;User Id=sa;Password=Asefb@101;");
+            optionsBuilder.UseSqlServer(@"Server=LAPTOP-4SRJP1SK;Database=spotify;Trusted_Connection=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -17,12 +17,6 @@ namespace Spotify_clone2.Controllers
             return View();
         }
 
-        [Authorize]
-        public IActionResult payment()
-        {
-            return View();
-        }
-        
         
     }
 }

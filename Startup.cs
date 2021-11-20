@@ -10,6 +10,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Spotify_clone2.Models;
 using Microsoft.AspNetCore.Identity;
+using Spotify_clone2.Configuration;
+using Stripe;
+
+
 namespace Spotify_clone2
 {
     public class Startup
@@ -24,6 +28,17 @@ namespace Spotify_clone2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<StripeOptions>(options =>
+            {
+                options.PublishableKey = Configuration["Stripe:PublishableKey"];
+                options.SecretKey = Configuration["Stripe:SecretKey"];
+                options.WebhookSecret = Configuration["Stripe:WebhookKey"];
+                options.PremiumPrice = Configuration["Stripe:PremiumPriceKey"];
+                options.Domain = Configuration["Stripe:Domain"];
+            });
+
+
+
             services.AddDbContext<AppDbContext>();
             services.AddIdentity<Client, IdentityRole>()
             .AddEntityFrameworkStores<AppDbContext>();
@@ -33,6 +48,8 @@ namespace Spotify_clone2
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            StripeConfiguration.ApiKey = Configuration["Stripe:SecretKey"];
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -59,3 +76,4 @@ namespace Spotify_clone2
         }
     }
 }
+
