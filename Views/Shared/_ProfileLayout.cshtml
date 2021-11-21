@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Spotify_clone2</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="SolMusic HTML Template">
+    <meta name="keywords" content="music, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
+    <link href="~/img/favicon.ico" rel="shortcut icon" />
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/css/slicknav.min.css" />
+
+    <!-- Main Stylesheets -->
+    <link rel="stylesheet" href="~/css/style.css" />
+
+
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        body {
+            margin-top: 20px;
+            color: #bcd0f7;
+            background: #1A233A;
+        }
+
+        .account-settings .user-profile {
+            margin: 0 0 1rem 0;
+            padding-bottom: 1rem;
+            text-align: center;
+        }
+
+            .account-settings .user-profile .user-avatar {
+                margin: 0 0 1rem 0;
+            }
+
+                .account-settings .user-profile .user-avatar img {
+                    width: 90px;
+                    height: 90px;
+                    -webkit-border-radius: 100px;
+                    -moz-border-radius: 100px;
+                    border-radius: 100px;
+                }
+
+            .account-settings .user-profile h5.user-name {
+                margin: 0 0 0.5rem 0;
+            }
+
+            .account-settings .user-profile h6.user-email {
+                margin: 0;
+                font-size: 0.8rem;
+                font-weight: 400;
+            }
+
+        .account-settings .about {
+            margin: 1rem 0 0 0;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .card {
+            background: #272E48;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            border: 0;
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            border: 1px solid #596280;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            font-size: .825rem;
+            background: #1A233A;
+            color: #bcd0f7;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header section -->
+    <header class="header-section clearfix">
+        <a href="index.html" class="site-logo">
+            <img src="img/logo.png" alt="">
+        </a>
+        <div class="header-right">
+            <div class="user-panel">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink("Login", "login", "Account", null, new { @class = "login" })
+                    @Html.ActionLink("Create an account", "register", "Account", null, new { @class = "register" })
+                }
+                else
+                {
+                    @Html.ActionLink("Logout", "logout", "Account", null, new { @class = "login" })
+                }
+            </div>
+        </div>
+        <ul class="main-menu">
+            <li>@Html.ActionLink("Home", "index", "Home", null, new { })</li>
+            <li><a href="#">About</a></li>
+            <li>@Html.ActionLink("Premuim", "index", "premium", null, new { })</li>
+            <li><a href="#">contact</a></li>
+
+        </ul>
+    </header>
+    <!-- Header section end -->
+
+    @RenderBody()
+
+    <!-- Footer section -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-lg-7 order-lg-2">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="footer-widget">
+                                <h2>About us</h2>
+                                <ul>
+                                    <li><a href="">Our Story</a></li>
+                                    <li><a href="">Sol Music Blog</a></li>
+                                    <li><a href="">History</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="footer-widget">
+                                <h2>Products</h2>
+                                <ul>
+                                    <li><a href="">Music</a></li>
+                                    <li><a href="">Subscription</a></li>
+                                    <li><a href="">Custom Music</a></li>
+                                    <li><a href="">Footage</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="footer-widget">
+                                <h2>Playlists</h2>
+                                <ul>
+                                    <li><a href="">Newsletter</a></li>
+                                    <li><a href="">Careers</a></li>
+                                    <li><a href="">Press</a></li>
+                                    <li><a href="">Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-5 order-lg-1">
+                    <img src="~/img/logo.png" alt="">
+                    <div class="copyright">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </div>
+                    <div class="social-links">
+                        <a href=""><i class="fa fa-instagram"></i></a>
+                        <a href=""><i class="fa fa-pinterest"></i></a>
+                        <a href=""><i class="fa fa-facebook"></i></a>
+                        <a href=""><i class="fa fa-twitter"></i></a>
+                        <a href=""><i class="fa fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer section end -->
+    <!--====== Javascripts & Jquery ======-->
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.slicknav.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/mixitup.min.js"></script>
+    <script src="~/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

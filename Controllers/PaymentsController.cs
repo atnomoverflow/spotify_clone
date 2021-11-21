@@ -36,14 +36,14 @@ namespace server.Controllers
                 PublishableKey = this.options.Value.PublishableKey,
             };
         }
-
+        [Authorize]
         [HttpPost("create-checkout-session")]
         public async Task<IActionResult> CreateCheckoutSession()
         {
             var options = new SessionCreateOptions
             {
-                SuccessUrl = $"{this.options.Value.Domain}/success.html?session_id={{CHECKOUT_SESSION_ID}}",
-                CancelUrl = $"{this.options.Value.Domain}/canceled.html",
+                SuccessUrl = $"{this.options.Value.Domain}/order/success?session_id={{CHECKOUT_SESSION_ID}}",
+                CancelUrl = $"{this.options.Value.Domain}",
                 PaymentMethodTypes = new List<string>
                 {
                     "card",

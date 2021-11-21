@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Spotify_clone2.Models;
+using Spotify_clone2.Repositories;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Spotify_clone2.Controllers
@@ -14,16 +15,68 @@ namespace Spotify_clone2.Controllers
     {
         private readonly UserManager<Client> _userManager;
         private readonly SignInManager<Client> _signInManager;
+        private readonly IClientRepository _clientRepository;
         public AccountController(UserManager<Client> userManager,
-                              SignInManager<Client> signInManager)
+                              SignInManager<Client> signInManager,
+                              IClientRepository clientRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _clientRepository = clientRepository;
         }
         public IActionResult Index()
         {
             return View();
         }
+
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            string userId = _userManager.GetUserId(HttpContext.User);
+            Client client = await _clientRepository.GetByIdAsync(userId);
+            ViewBag.clientNom = client.Nom;
+            ViewBag.clientPrenom = client.Prenom;
+            ViewBag.clientEmail = client.Email;
+            ViewBag.clientDob = client.DOB;
+
+            return View() ;
+        }
+
+
+
+
+
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Profile(ProfileViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var user = new Client
+                {
+                    UserName = model.Username,
+                    Email = model.Email,
+                    Nom = model.Nom,
+                    Prenom = model.Prenom
+                };
+                var result = await _userManager.UpdateAsync(user);
+            }
+            return RedirectToAction("profile", "Account");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
         public IActionResult Register()
         {
