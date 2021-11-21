@@ -8,18 +8,23 @@ using Stripe;
 using Stripe.Checkout;
 using Spotify_clone2.Configuration;
 using Spotify_clone2.Models;
-
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Spotify_clone2.Repositories;
 namespace server.Controllers
 {
     public class PaymentsController : Controller
     {
         public readonly IOptions<StripeOptions> options;
         private readonly IStripeClient client;
-
-        public PaymentsController(IOptions<StripeOptions> options)
+        private readonly UserManager<Client> _userManager;
+        private readonly IMembershipRepository _membershipRepository;
+        public PaymentsController(IOptions<StripeOptions> options, UserManager<Client> userManager, IMembershipRepository membershipRepository)
         {
+            _userManager = userManager;
             this.options = options;
             this.client = new StripeClient(this.options.Value.SecretKey);
+            _membershipRepository = membershipRepository;
         }
 
         [HttpGet("config")]
@@ -81,14 +86,19 @@ namespace server.Controllers
             var session = await service.GetAsync(sessionId);
             return Ok(session);
         }
-
+        private async Task<Client> GetCurrentCustomer()
+        {
+            return await _userManager.GetUserAsync(HttpContext.User);
+        }
+        [Authorize]
         [HttpPost("customer-portal")]
         public async Task<IActionResult> CustomerPortal(string sessionId)
         {
-            // For demonstration purposes, we're using the Checkout session to retrieve the customer ID.
-            // Typically this is stored alongside the authenticated user in your database.
-            var checkoutService = new SessionService(this.client);
-            var checkoutSession = await checkoutService.GetAsync(sessionId);
+            var customer = await GetCurrentCustomer();
+            if (customer == null)
+            {
+                return BadRequest();
+            }
 
             // This is the URL to which your customer will return after
             // they are done managing billing in the Customer Portal.
@@ -96,7 +106,7 @@ namespace server.Controllers
 
             var options = new Stripe.BillingPortal.SessionCreateOptions
             {
-                Customer = checkoutSession.CustomerId,
+                Customer = customer.CustomerId,
                 ReturnUrl = returnUrl,
             };
             var service = new Stripe.BillingPortal.SessionService(this.client);
@@ -105,7 +115,72 @@ namespace server.Controllers
             Response.Headers.Add("Location", session.Url);
             return new StatusCodeResult(303);
         }
+        private async Task updateSubscription(Subscription subscription)
+        {
+            try
+            {
+                var subscriptionFromDb = await _membershipRepository.GetByIdAsync(subscription.Id);
+                if (subscriptionFromDb != null)
+                {
+                    subscriptionFromDb.Status = subscription.Status;
+                    subscriptionFromDb.CurrentPeriodEnd = subscription.CurrentPeriodEnd;
+                    await _membershipRepository.UpdateAsync(subscriptionFromDb);
+                    Console.WriteLine("Subscription Updated");
+                }
 
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                Console.WriteLine("Unable to update subscription");
+
+            }
+
+        }
+
+        private async Task addCustomerIdToUser(Customer customer)
+        {
+            try
+            {
+                var userFromDb = await _userManager.FindByEmailAsync(customer.Email);
+
+                if (userFromDb != null)
+                {
+                    userFromDb.CustomerId = customer.Id;
+                    await _userManager.UpdateAsync(userFromDb);
+                    Console.WriteLine("Customer Id added to user ");
+                }
+
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine("Unable to add customer id to user");
+                Console.WriteLine(ex);
+            }
+        }
+
+        private async Task addSubscriptionToDb(Subscription subscription)
+        {
+            try
+            {
+                var membership = new Memebership
+                {
+                    Id = subscription.Id,
+                    CustomerId = subscription.CustomerId,
+                    Status = "active",
+                    CurrentPeriodEnd = subscription.CurrentPeriodEnd
+                };
+                await _membershipRepository.CreateAsync(membership);
+
+                //You can send the new membership an email welcoming the new membership
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine("Unable to add new membership to Database");
+                Console.WriteLine(ex.Message);
+            }
+        }
         [HttpPost("webhook")]
         public async Task<IActionResult> Webhook()
         {
@@ -118,22 +193,40 @@ namespace server.Controllers
                     Request.Headers["Stripe-Signature"],
                     this.options.Value.WebhookSecret
                 );
-                Console.WriteLine($"Webhook notification with type: {stripeEvent.Type} found for {stripeEvent.Id}");
+                Console.WriteLine(stripeEvent.Type);
+                // Handle the event
+                if (stripeEvent.Type == Events.CustomerSubscriptionCreated)
+                {
+                    var subscription = stripeEvent.Data.Object as Subscription;
+                    //Do stuff
+                    await addSubscriptionToDb(subscription);
+                }
+                else if (stripeEvent.Type == Events.CustomerSubscriptionUpdated)
+                {
+                    var session = stripeEvent.Data.Object as Stripe.Subscription;
+
+                    // Update Subsription
+                    await updateSubscription(session);
+                }
+                else if (stripeEvent.Type == Events.CustomerCreated)
+                {
+                    var customer = stripeEvent.Data.Object as Customer;
+                    //Do Stuff
+                    await addCustomerIdToUser(customer);
+                }
+                // ... handle other event types
+                else
+                {
+                    // Unexpected event type
+                    Console.WriteLine("Unhandled event type: {0}", stripeEvent.Type);
+                }
+                return Ok();
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Something failed {e}");
                 return BadRequest();
             }
-
-            if (stripeEvent.Type == "checkout.session.completed")
-            {
-                var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
-                Console.WriteLine($"Session ID: {session.Id}");
-                // Take some action based on session.
-            }
-
-            return Ok();
         }
     }
 }

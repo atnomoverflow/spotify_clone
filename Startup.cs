@@ -12,7 +12,7 @@ using Spotify_clone2.Models;
 using Microsoft.AspNetCore.Identity;
 using Spotify_clone2.Configuration;
 using Stripe;
-
+using Spotify_clone2.Repositories;
 
 namespace Spotify_clone2
 {
@@ -38,8 +38,9 @@ namespace Spotify_clone2
             });
 
 
-
             services.AddDbContext<AppDbContext>();
+            services.AddScoped<IMembershipRepository, MembershipRepository>();
+
             services.AddIdentity<Client, IdentityRole>()
             .AddEntityFrameworkStores<AppDbContext>();
             services.AddControllersWithViews();

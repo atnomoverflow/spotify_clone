@@ -10,5 +10,6 @@ namespace Spotify_clone2.Models
     {
         public int ClientId { get; set; }
         public ICollection<PlayList> PlayLists { get; set; }
+        public string CustomerId { get; set; }
     }
 }
