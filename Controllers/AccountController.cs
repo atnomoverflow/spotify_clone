@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Spotify_clone2.Models;
 using Spotify_clone2.Repositories;
 using Microsoft.AspNetCore.Authorization;
-
 namespace Spotify_clone2.Controllers
 {
     public class AccountController : Controller
@@ -39,7 +38,7 @@ namespace Spotify_clone2.Controllers
             ViewBag.clientEmail = client.Email;
             ViewBag.clientDob = client.DOB;
 
-            return View() ;
+            return View();
         }
 
 
@@ -53,30 +52,16 @@ namespace Spotify_clone2.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                var user = new Client
-                {
-                    UserName = model.Username,
-                    Email = model.Email,
-                    Nom = model.Nom,
-                    Prenom = model.Prenom
-                };
-                var result = await _userManager.UpdateAsync(user);
+                string userId = _userManager.GetUserId(HttpContext.User);
+                Client client = await _clientRepository.GetByIdAsync(userId);
+                client.UserName = model.UserDetailViewModel.Username;
+                client.Email = model.UserDetailViewModel.Email;
+                client.Nom = model.UserDetailViewModel.Nom;
+                client.Prenom = model.UserDetailViewModel.Prenom;
+                var result = await _clientRepository.UpdateAsync(client);
             }
-            return RedirectToAction("profile", "Account");
+            return View();
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
         public IActionResult Register()
         {
@@ -92,7 +77,7 @@ namespace Spotify_clone2.Controllers
 
                 var user = new Client
                 {
-                    UserName = model.Email,
+                    UserName = model.Username,
                     Email = model.Email,
                     Nom = model.Nom,
                     Prenom = model.Prenom
