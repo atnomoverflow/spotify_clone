@@ -12,11 +12,11 @@ namespace Spotify_clone2.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<Client> _userManager;
-        private readonly SignInManager<Client> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly IClientRepository _clientRepository;
-        public AccountController(UserManager<Client> userManager,
-                              SignInManager<Client> signInManager,
+        public AccountController(UserManager<User> userManager,
+                              SignInManager<User> signInManager,
                               IClientRepository clientRepository)
         {
             _userManager = userManager;
@@ -75,18 +75,20 @@ namespace Spotify_clone2.Controllers
             if (ModelState.IsValid)
             {
 
-                var user = new Client
+                var user = new User
                 {
                     UserName = model.Username,
                     Email = model.Email,
                     Nom = model.Nom,
-                    Prenom = model.Prenom
+                    Prenom = model.Prenom,
+                    client = new Client()
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "client");
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
                     return RedirectToAction("index", "Home");
