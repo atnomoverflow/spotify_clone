@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Spotify_clone2.Models
 {
-    public class User: IdentityUser
+    public class User : IdentityUser
     {
+        public virtual Client client { get; set; }
+        public virtual Artiste Artiste { get; set; }
         [PersonalData]
         public string Nom { get; set; }
         [PersonalData]
