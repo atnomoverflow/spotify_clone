@@ -8,7 +8,6 @@ namespace Spotify_clone2.Models
     {
 
         public DbSet<Song> Songs { get; set; }
-        public DbSet<Category> Categories { get; set; }
         public DbSet<Album> Albums { get; set; }
         public DbSet<Memebership> Memeberships { get; set; }
         public DbSet<PlayList> PlayLists { get; set; }
