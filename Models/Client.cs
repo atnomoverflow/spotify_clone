@@ -11,7 +11,7 @@ namespace Spotify_clone2.Models
         public virtual User User { get; set; }
 
         [ForeignKey("User")]
-        public int ClientId { get; set; }
+        public string ClientId { get; set; }
         public ICollection<PlayList> PlayLists { get; set; }
         public string CustomerId { get; set; }
     }

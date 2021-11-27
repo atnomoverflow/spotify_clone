@@ -39,7 +39,7 @@ namespace Spotify_clone2.Repositories
 
         public async Task<Client> GetByIdAsync(string id)
         {
-            return await _context.Clients.SingleOrDefaultAsync(x => x.userId == id);
+            return await _context.Clients.SingleOrDefaultAsync(x => x.ClientId == id);
         }
 
         public async Task<Client> UpdateAsync(Client client)
