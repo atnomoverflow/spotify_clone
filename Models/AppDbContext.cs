@@ -11,7 +11,7 @@ namespace Spotify_clone2.Models
         public DbSet<Album> Albums { get; set; }
         public DbSet<Memebership> Memeberships { get; set; }
         public DbSet<PlayList> PlayLists { get; set; }
-        public DbSet<Client> Clients { get; set; }
+        public DbSet<User> Clients { get; set; }
 
         public DbSet<Artiste> Artistes { get; set; }
 

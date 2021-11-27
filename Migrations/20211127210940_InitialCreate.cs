@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Spotify_clone2.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -68,14 +68,14 @@ namespace Spotify_clone2.Migrations
                 name: "Memeberships",
                 columns: table => new
                 {
-                    MemebershipId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MembershipType = table.Column<int>(type: "int", nullable: false),
-                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CustomerId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CurrentPeriodEnd = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Memeberships", x => x.MemebershipId);
+                    table.PrimaryKey("PK_Memeberships", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,19 +100,19 @@ namespace Spotify_clone2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Albums",
+                name: "Artistes",
                 columns: table => new
                 {
-                    AlbumId = table.Column<int>(type: "int", nullable: false)
+                    ArtisteId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ArtisteId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    userID = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Albums", x => x.AlbumId);
+                    table.PrimaryKey("PK_Artistes", x => x.ArtisteId);
                     table.ForeignKey(
-                        name: "FK_Albums_AspNetUsers_ArtisteId",
-                        column: x => x.ArtisteId,
+                        name: "FK_Artistes_AspNetUsers_userID",
+                        column: x => x.userID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -204,21 +204,60 @@ namespace Spotify_clone2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Client",
+                columns: table => new
+                {
+                    ClientId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    userID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CustomerId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Client", x => x.ClientId);
+                    table.ForeignKey(
+                        name: "FK_Client_AspNetUsers_userID",
+                        column: x => x.userID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Albums",
+                columns: table => new
+                {
+                    AlbumId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ArtisteId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Albums", x => x.AlbumId);
+                    table.ForeignKey(
+                        name: "FK_Albums_Artistes_ArtisteId",
+                        column: x => x.ArtisteId,
+                        principalTable: "Artistes",
+                        principalColumn: "ArtisteId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PlayLists",
                 columns: table => new
                 {
                     PlayListId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ClientId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ClientId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PlayLists", x => x.PlayListId);
                     table.ForeignKey(
-                        name: "FK_PlayLists_AspNetUsers_ClientId",
+                        name: "FK_PlayLists_Client_ClientId",
                         column: x => x.ClientId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
+                        principalTable: "Client",
+                        principalColumn: "ClientId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -283,6 +322,13 @@ namespace Spotify_clone2.Migrations
                 column: "ArtisteId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Artistes_userID",
+                table: "Artistes",
+                column: "userID",
+                unique: true,
+                filter: "[userID] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -325,6 +371,13 @@ namespace Spotify_clone2.Migrations
                 name: "IX_CategorySong_typeCategoryId",
                 table: "CategorySong",
                 column: "typeCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Client_userID",
+                table: "Client",
+                column: "userID",
+                unique: true,
+                filter: "[userID] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PlayLists_ClientId",
@@ -379,6 +432,12 @@ namespace Spotify_clone2.Migrations
 
             migrationBuilder.DropTable(
                 name: "PlayLists");
+
+            migrationBuilder.DropTable(
+                name: "Artistes");
+
+            migrationBuilder.DropTable(
+                name: "Client");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
