@@ -13,7 +13,7 @@ namespace Spotify_clone2.Repositories
         {
             _context = context;
         }
-        public async Task<Client> CreateAsync(Client client)
+        public async Task<User> CreateAsync(User client)
         {
             await _context.Clients.AddAsync(client);
             await _context.SaveChangesAsync();
@@ -21,28 +21,28 @@ namespace Spotify_clone2.Repositories
 
         }
 
-        public async Task DeleteAsync(Client client)
+        public async Task DeleteAsync(User client)
         {
             _context.Clients.Remove(client);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Client>> GetAsync()
+        public async Task<IEnumerable<User>> GetAsync()
         {
             return await _context.Clients.ToListAsync();
         }
 
-        public async Task<Client> GetByCustomerIdAsync(string id)
+        public async Task<User> GetByCustomerIdAsync(string id)
         {
-            return await _context.Clients.SingleOrDefaultAsync(x => x.CustomerId == id);
+            return await _context.Clients.SingleOrDefaultAsync(x => x.client.CustomerId == id);
         }
 
-        public async Task<Client> GetByIdAsync(string id)
+        public async Task<User> GetByIdAsync(string id)
         {
-            return await _context.Clients.SingleOrDefaultAsync(x => x.ClientId == id);
+            return await _context.Clients.SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Client> UpdateAsync(Client client)
+        public async Task<User> UpdateAsync(User client)
         {
             _context.Clients.UpdateRange(client);
             await _context.SaveChangesAsync();

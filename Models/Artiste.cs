@@ -7,12 +7,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Spotify_clone2.Models
 {
-    public class Artiste 
+    public class Artiste
     {
-        public virtual User User { get; set; }
-        
-        [ForeignKey("User")]
-        public string ArtisteId { get; set; }
+        public virtual User user { get; set; }
+        public string userID { get; set; }
+
+        public int ArtisteId { get; set; }
         public ICollection<Album> Albums { get; set; }
     }
 }

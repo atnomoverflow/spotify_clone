@@ -17,9 +17,9 @@ namespace server.Controllers
     {
         public readonly IOptions<StripeOptions> options;
         private readonly IStripeClient client;
-        private readonly UserManager<Client> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IMembershipRepository _membershipRepository;
-        public PaymentsController(IOptions<StripeOptions> options, UserManager<Client> userManager, IMembershipRepository membershipRepository)
+        public PaymentsController(IOptions<StripeOptions> options, UserManager<User> userManager, IMembershipRepository membershipRepository)
         {
             _userManager = userManager;
             this.options = options;
@@ -86,7 +86,7 @@ namespace server.Controllers
             var session = await service.GetAsync(sessionId);
             return Ok(session);
         }
-        private async Task<Client> GetCurrentCustomer()
+        private async Task<User> GetCurrentCustomer()
         {
             return await _userManager.GetUserAsync(HttpContext.User);
         }
@@ -106,7 +106,7 @@ namespace server.Controllers
 
             var options = new Stripe.BillingPortal.SessionCreateOptions
             {
-                Customer = customer.CustomerId,
+                Customer = customer.Id,
                 ReturnUrl = returnUrl,
             };
             var service = new Stripe.BillingPortal.SessionService(this.client);
@@ -147,7 +147,7 @@ namespace server.Controllers
 
                 if (userFromDb != null)
                 {
-                    userFromDb.CustomerId = customer.Id;
+                    userFromDb.Id = customer.Id;
                     await _userManager.UpdateAsync(userFromDb);
                     Console.WriteLine("Customer Id added to user ");
                 }

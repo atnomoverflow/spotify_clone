@@ -32,7 +32,7 @@ namespace Spotify_clone2.Controllers
         public async Task<IActionResult> Profile()
         {
             string userId = _userManager.GetUserId(HttpContext.User);
-            Client client = await _clientRepository.GetByIdAsync(userId);
+            User client = await _clientRepository.GetByIdAsync(userId);
             ViewBag.clientNom = client.Nom;
             ViewBag.clientPrenom = client.Prenom;
             ViewBag.clientEmail = client.Email;
@@ -53,7 +53,7 @@ namespace Spotify_clone2.Controllers
             if (ModelState.IsValid)
             {
                 string userId = _userManager.GetUserId(HttpContext.User);
-                Client client = await _clientRepository.GetByIdAsync(userId);
+                User client = await _clientRepository.GetByIdAsync(userId);
                 client.UserName = model.UserDetailViewModel.Username;
                 client.Email = model.UserDetailViewModel.Email;
                 client.Nom = model.UserDetailViewModel.Nom;

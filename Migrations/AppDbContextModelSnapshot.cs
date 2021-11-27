@@ -97,6 +97,10 @@ namespace Spotify_clone2.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -148,6 +152,8 @@ namespace Spotify_clone2.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -237,14 +243,33 @@ namespace Spotify_clone2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ArtisteId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("ArtisteId")
+                        .HasColumnType("int");
 
                     b.HasKey("AlbumId");
 
                     b.HasIndex("ArtisteId");
 
                     b.ToTable("Albums");
+                });
+
+            modelBuilder.Entity("Spotify_clone2.Models.Artiste", b =>
+                {
+                    b.Property<int>("ArtisteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("userID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ArtisteId");
+
+                    b.HasIndex("userID")
+                        .IsUnique()
+                        .HasFilter("[userID] IS NOT NULL");
+
+                    b.ToTable("Artistes");
                 });
 
             modelBuilder.Entity("Spotify_clone2.Models.Category", b =>
@@ -263,6 +288,28 @@ namespace Spotify_clone2.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Spotify_clone2.Models.Client", b =>
+                {
+                    b.Property<int>("ClientId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("userID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ClientId");
+
+                    b.HasIndex("userID")
+                        .IsUnique()
+                        .HasFilter("[userID] IS NOT NULL");
+
+                    b.ToTable("Client");
                 });
 
             modelBuilder.Entity("Spotify_clone2.Models.Memebership", b =>
@@ -291,8 +338,8 @@ namespace Spotify_clone2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ClientId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("ClientId")
+                        .HasColumnType("int");
 
                     b.HasKey("PlayListId");
 
@@ -338,12 +385,9 @@ namespace Spotify_clone2.Migrations
                     b.ToTable("Songs");
                 });
 
-            modelBuilder.Entity("Spotify_clone2.Models.Artiste", b =>
+            modelBuilder.Entity("Spotify_clone2.Models.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<int>("ArtisteId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("DOB")
                         .HasColumnType("datetime2");
@@ -354,29 +398,7 @@ namespace Spotify_clone2.Migrations
                     b.Property<string>("Prenom")
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Artistes");
-                });
-
-            modelBuilder.Entity("Spotify_clone2.Models.Client", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CustomerId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DOB")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Nom")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Prenom")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("Clients");
+                    b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("CategorySong", b =>
@@ -452,6 +474,24 @@ namespace Spotify_clone2.Migrations
                         .HasForeignKey("ArtisteId");
                 });
 
+            modelBuilder.Entity("Spotify_clone2.Models.Artiste", b =>
+                {
+                    b.HasOne("Spotify_clone2.Models.User", "user")
+                        .WithOne("artiste")
+                        .HasForeignKey("Spotify_clone2.Models.Artiste", "userID");
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("Spotify_clone2.Models.Client", b =>
+                {
+                    b.HasOne("Spotify_clone2.Models.User", "user")
+                        .WithOne("client")
+                        .HasForeignKey("Spotify_clone2.Models.Client", "userID");
+
+                    b.Navigation("user");
+                });
+
             modelBuilder.Entity("Spotify_clone2.Models.PlayList", b =>
                 {
                     b.HasOne("Spotify_clone2.Models.Client", null)
@@ -472,30 +512,7 @@ namespace Spotify_clone2.Migrations
                     b.Navigation("album");
                 });
 
-            modelBuilder.Entity("Spotify_clone2.Models.Artiste", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithOne()
-                        .HasForeignKey("Spotify_clone2.Models.Artiste", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Spotify_clone2.Models.Client", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithOne()
-                        .HasForeignKey("Spotify_clone2.Models.Client", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Spotify_clone2.Models.Album", b =>
-                {
-                    b.Navigation("songs");
-                });
-
-            modelBuilder.Entity("Spotify_clone2.Models.PlayList", b =>
                 {
                     b.Navigation("songs");
                 });
@@ -508,6 +525,18 @@ namespace Spotify_clone2.Migrations
             modelBuilder.Entity("Spotify_clone2.Models.Client", b =>
                 {
                     b.Navigation("PlayLists");
+                });
+
+            modelBuilder.Entity("Spotify_clone2.Models.PlayList", b =>
+                {
+                    b.Navigation("songs");
+                });
+
+            modelBuilder.Entity("Spotify_clone2.Models.User", b =>
+                {
+                    b.Navigation("artiste");
+
+                    b.Navigation("client");
                 });
 #pragma warning restore 612, 618
         }

@@ -9,12 +9,12 @@ namespace Spotify_clone2.Repositories
 
 	public interface IClientRepository
     {	
-		Task<Client> UpdateAsync(Client client);
-		Task<IEnumerable<Client>> GetAsync();
-		Task<Client> GetByIdAsync(string id);
-		Task<Client> GetByCustomerIdAsync(string id);
-		Task<Client> CreateAsync(Client client);
-		Task DeleteAsync(Client client);
+		Task<User> UpdateAsync(User client);
+		Task<IEnumerable<User>> GetAsync();
+		Task<User> GetByIdAsync(string id);
+		Task<User> GetByCustomerIdAsync(string id);
+		Task<User> CreateAsync(User client);
+		Task DeleteAsync(User client);
 
 	}
 }
