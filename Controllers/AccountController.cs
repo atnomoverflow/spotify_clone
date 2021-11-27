@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Spotify_clone2.Models;
 using Spotify_clone2.Repositories;
 using Microsoft.AspNetCore.Authorization;
+
 namespace Spotify_clone2.Controllers
 {
     public class AccountController : Controller
