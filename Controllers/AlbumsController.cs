@@ -148,5 +148,24 @@ namespace Spotify_clone2.Controllers
         {
             return _context.Albums.Any(e => e.AlbumId == id);
         }
+
+
+        public async Task<IActionResult> Songs(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var album = await _context.Albums
+                .FirstOrDefaultAsync(m => m.AlbumId == id);
+            if (album == null)
+            {
+                return NotFound();
+            }
+
+            return View(album);
+        }
+
     }
 }
