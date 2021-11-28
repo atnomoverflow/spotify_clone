@@ -14,5 +14,8 @@ namespace Spotify_clone2.Models
 
         public int ArtisteId { get; set; }
         public ICollection<Album> Albums { get; set; }
+
+        [Column(TypeName = "text")]
+        public string bio { get; set; }
     }
 }

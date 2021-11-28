@@ -33,5 +33,6 @@ namespace Spotify_clone2.Models
         public Album album { get; set; }
         public int likes { get; set; }
         public int views { get; set; }
+        public Artiste artiste { get; set; }
     }
 }
