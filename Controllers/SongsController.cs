@@ -9,22 +9,22 @@ using Spotify_clone2.Models;
 
 namespace Spotify_clone2.Controllers
 {
-    public class ArtisteController : Controller
+    public class SongsController : Controller
     {
         private readonly AppDbContext _context;
 
-        public ArtisteController(AppDbContext context)
+        public SongsController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Artiste
+        // GET: Songs
         public async Task<IActionResult> Index()
         {
             return View(await _context.Songs.ToListAsync());
         }
 
-        // GET: Artiste/Details/5
+        // GET: Songs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,13 +42,13 @@ namespace Spotify_clone2.Controllers
             return View(song);
         }
 
-        // GET: Artiste/Create
+        // GET: Songs/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Artiste/Create
+        // POST: Songs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -64,7 +64,7 @@ namespace Spotify_clone2.Controllers
             return View(song);
         }
 
-        // GET: Artiste/Edit/5
+        // GET: Songs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,7 +80,7 @@ namespace Spotify_clone2.Controllers
             return View(song);
         }
 
-        // POST: Artiste/Edit/5
+        // POST: Songs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -115,7 +115,7 @@ namespace Spotify_clone2.Controllers
             return View(song);
         }
 
-        // GET: Artiste/Delete/5
+        // GET: Songs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,7 +133,7 @@ namespace Spotify_clone2.Controllers
             return View(song);
         }
 
-        // POST: Artiste/Delete/5
+        // POST: Songs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
