@@ -23,6 +23,12 @@ namespace Spotify_clone2.Models
          Ambient,
         World
     }
+    public enum tags
+    {
+        quitar, piano, music, electronic, minimal, chill, pop, cultural, live, popular
+    }
+
+
     public class Song
     {
         public int SongId { get; set; }
@@ -30,6 +36,7 @@ namespace Spotify_clone2.Models
         public string description { get; set; }
         public double duration { get; set; }
         public Category category { get; set; }
+       /* public ICollection<Enum> tags { get; set; }*/
         public Album album { get; set; }
         public int likes { get; set; }
         public int views { get; set; }

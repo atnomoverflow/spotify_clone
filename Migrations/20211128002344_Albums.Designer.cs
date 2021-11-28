@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Spotify_clone2.Models;
 
 namespace Spotify_clone2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211128002344_Albums")]
+    partial class Albums
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -311,9 +313,6 @@ namespace Spotify_clone2.Migrations
                     b.Property<int?>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<string>("name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("PlayListId");
 
                     b.HasIndex("ClientId");
@@ -430,11 +429,9 @@ namespace Spotify_clone2.Migrations
 
             modelBuilder.Entity("Spotify_clone2.Models.Album", b =>
                 {
-                    b.HasOne("Spotify_clone2.Models.Artiste", "artiste")
+                    b.HasOne("Spotify_clone2.Models.Artiste", null)
                         .WithMany("Albums")
                         .HasForeignKey("ArtisteId");
-
-                    b.Navigation("artiste");
                 });
 
             modelBuilder.Entity("Spotify_clone2.Models.Artiste", b =>
@@ -457,11 +454,9 @@ namespace Spotify_clone2.Migrations
 
             modelBuilder.Entity("Spotify_clone2.Models.PlayList", b =>
                 {
-                    b.HasOne("Spotify_clone2.Models.Client", "client")
+                    b.HasOne("Spotify_clone2.Models.Client", null)
                         .WithMany("PlayLists")
                         .HasForeignKey("ClientId");
-
-                    b.Navigation("client");
                 });
 
             modelBuilder.Entity("Spotify_clone2.Models.Song", b =>
