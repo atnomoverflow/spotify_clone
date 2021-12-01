@@ -33,12 +33,12 @@ namespace Spotify_clone2.Controllers
         public async Task<IActionResult> Profile()
         {
             string userId = _userManager.GetUserId(HttpContext.User);
-            User client = await _clientRepository.GetByIdAsync(userId);
+            var client = await _clientRepository.GetByIdAsync(userId);
             ViewBag.clientNom = client.Nom;
             ViewBag.clientPrenom = client.Prenom;
             ViewBag.clientEmail = client.Email;
-            ViewBag.clientDob = client.DOB;
-
+            ViewBag.clientDob = client.DOB.ToString();
+            ViewBag.clientUsername = client.UserName;
             return View();
         }
 
@@ -47,21 +47,66 @@ namespace Spotify_clone2.Controllers
 
 
 
-        [Authorize]
+        [Authorize(Roles = "client")]
         [HttpPost]
-        public async Task<IActionResult> Profile(ProfileViewModel model)
+        public async Task<IActionResult> changeUserDetail(ProfileViewModel model)
         {
+
+            var user = await _userManager.GetUserAsync(User);
+
             if (ModelState.IsValid)
             {
-                string userId = _userManager.GetUserId(HttpContext.User);
-                User client = await _clientRepository.GetByIdAsync(userId);
-                client.UserName = model.UserDetailViewModel.Username;
-                client.Email = model.UserDetailViewModel.Email;
-                client.Nom = model.UserDetailViewModel.Nom;
-                client.Prenom = model.UserDetailViewModel.Prenom;
-                var result = await _clientRepository.UpdateAsync(client);
+                user.Nom = model.UserDetailViewModel.Nom;
+                user.Prenom = model.UserDetailViewModel.Prenom;
+                user.Email = model.UserDetailViewModel.Email;
+                user.DOB = model.UserDetailViewModel.DOB;
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return View("Profile");
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                ModelState.AddModelError(string.Empty, "Please fill with the right detail");
             }
-            return View();
+            ViewBag.clientNom = user.Nom;
+            ViewBag.clientPrenom = user.Prenom;
+            ViewBag.clientEmail = user.Email;
+            ViewBag.clientDob = user.DOB.ToString();
+            ViewBag.clientUsername = user.UserName;
+            return View("Profile", model);
+        }
+
+        [Authorize(Roles = "client")]
+        [HttpPost]
+        public async Task<IActionResult> changePassword(ProfileViewModel model)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            ViewBag.clientNom = user.Nom;
+            ViewBag.clientPrenom = user.Prenom;
+            ViewBag.clientEmail = user.Email;
+            ViewBag.clientDob = user.DOB.ToString();
+            ViewBag.clientUsername = user.UserName;
+            if (ModelState.IsValid)
+            {
+                var result = await _userManager.ChangePasswordAsync(user, model.ChangePasswordViewModel.OldPassword, model.ChangePasswordViewModel.NewPassword);
+
+                if (result.Succeeded)
+                {
+                    return View("Profile");
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                ModelState.AddModelError(string.Empty, "Wrong password");
+            }
+
+            return View("Profile", model);
         }
 
         public IActionResult Register()
@@ -118,7 +163,7 @@ namespace Spotify_clone2.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
+                var result = await _signInManager.PasswordSignInAsync(user.Username, user.Password, user.RememberMe, false);
 
                 if (result.Succeeded)
                 {
