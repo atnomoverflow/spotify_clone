@@ -6,7 +6,7 @@ using Stripe.Checkout;
 
 namespace Spotify_clone2.Controllers
 {
-  public class SuccessController : Controller
+ public class SuccessController : Controller
   {
     [HttpGet("/order/success")]
     public ActionResult OrderSuccess([FromQuery] string session_id)
