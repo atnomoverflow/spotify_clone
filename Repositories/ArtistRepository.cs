@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Spotify_clone2.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Spotify_clone2.Repositories
 {
@@ -38,9 +39,16 @@ namespace Spotify_clone2.Repositories
             _context.Artistes.Remove(artist);
             await _context.SaveChangesAsync();
         }
-        // public async Task<Song> getMostPopulareSong(Artiste artiste)
-        // {
 
-        // }
+        public async Task<IList<Song>> getMostPopulareSong(Artiste artiste)
+        {
+            var songsQeury =
+            await (from song in _context.Songs
+                   where song.artiste.ArtisteId == artiste.ArtisteId
+                   orderby song.likes
+                   select song
+            ).Take(2).ToListAsync();
+            return songsQeury;
+        }
     }
 }

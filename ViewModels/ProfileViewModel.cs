@@ -10,11 +10,6 @@ namespace Spotify_clone2.ViewModels
     {
         public ChangePasswordViewModel ChangePasswordViewModel { get; set; }
         public UserDetailViewModel UserDetailViewModel { get; set; }
-        public ProfileViewModel()
-        {
-            ChangePasswordViewModel = new ChangePasswordViewModel();
-            UserDetailViewModel = new UserDetailViewModel();
-        }
     }
     public class UserDetailViewModel
     {
