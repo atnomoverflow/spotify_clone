@@ -21,7 +21,7 @@ namespace Spotify_clone2.ViewModels
         [DataType(DataType.Text)]
         public string Username { get; set; }
         [Required]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
 
         public DateTime DOB { get; set; }
 
@@ -38,5 +38,5 @@ namespace Spotify_clone2.ViewModels
         [Compare("Password", ErrorMessage = "Password and confirmation password not match.")]
         public string ConfirmPassword { get; set; }
     }
-    
+
 }

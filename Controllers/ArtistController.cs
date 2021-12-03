@@ -26,7 +26,6 @@ namespace Spotify_clone2.Controllers
             _artistRepository = artistRepository;
         }
 
-        // GET: Artist/Detail/5
         public async Task<IActionResult> ArtistDetail(int? id)
         {
             if (id == null)

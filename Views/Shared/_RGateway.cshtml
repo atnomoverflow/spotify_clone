@@ -1,5 +1,6 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,92 +14,36 @@
     <link href="~/img/favicon.ico" rel="shortcut icon" />
 
     <!-- Google font -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap"
+        rel="stylesheet">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/font-awesome.min.css" />
     <link rel="stylesheet" href="~/css/owl.carousel.min.css" />
     <link rel="stylesheet" href="~/css/slicknav.min.css" />
-
+    <link rel="stylesheet" href="~/css/register.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <!-- Main Stylesheets -->
     <link rel="stylesheet" href="~/css/style.css" />
 
 
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <style>
-        body {
-            margin-top: 20px;
-            color: #bcd0f7;
-            background: #1A233A;
-        }
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
 
-        .account-settings .user-profile {
-            margin: 0 0 1rem 0;
-            padding-bottom: 1rem;
-            text-align: center;
-        }
-
-            .account-settings .user-profile .user-avatar {
-                margin: 0 0 1rem 0;
-            }
-
-                .account-settings .user-profile .user-avatar img {
-                    width: 90px;
-                    height: 90px;
-                    -webkit-border-radius: 100px;
-                    -moz-border-radius: 100px;
-                    border-radius: 100px;
-                }
-
-            .account-settings .user-profile h5.user-name {
-                margin: 0 0 0.5rem 0;
-            }
-
-            .account-settings .user-profile h6.user-email {
-                margin: 0;
-                font-size: 0.8rem;
-                font-weight: 400;
-            }
-
-        .account-settings .about {
-            margin: 1rem 0 0 0;
-            font-size: 0.8rem;
-            text-align: center;
-        }
-
-        .card {
-            background: #272E48;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-            border: 0;
-            margin-bottom: 1rem;
-        }
-
-        .form-control {
-            border: 1px solid #596280;
-            -webkit-border-radius: 2px;
-            -moz-border-radius: 2px;
-            border-radius: 2px;
-            font-size: .825rem;
-            background: #1A233A;
-            color: #bcd0f7;
-        }
-    </style>
 </head>
 
-<body>
+<body style="background-color: #08090b;">
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
     </div>
 
     <!-- Header section -->
-    <header class="header-section clearfix">
+    <header class="header-section clearfix" style="background-color: #08090b;">
         <a href="index.html" class="site-logo">
             <img src="img/logo.png" alt="">
         </a>
@@ -127,8 +72,9 @@
 
     @RenderBody()
 
+
     <!-- Footer section -->
-    <footer class="footer-section">
+    <footer class="footer-section" style="background-color: #08090b;">
         <div class="container">
             <div class="row">
                 <div class="col-xl-6 col-lg-7 order-lg-2">
@@ -172,7 +118,9 @@
                     <div class="copyright">
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         Copyright &copy;
-                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template
+                        is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                            target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </div>
                     <div class="social-links">
@@ -196,4 +144,5 @@
     <script src="~/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

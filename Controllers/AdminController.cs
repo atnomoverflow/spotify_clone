@@ -23,7 +23,7 @@ namespace Spotify_clone2.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> createRole()
+        public IActionResult createRole()
         {
             return View();
         }
