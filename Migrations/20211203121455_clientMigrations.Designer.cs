@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Spotify_clone2.Models;
 
 namespace Spotify_clone2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211203121455_clientMigrations")]
+    partial class clientMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,9 +233,6 @@ namespace Spotify_clone2.Migrations
                     b.Property<int?>("ArtisteId")
                         .HasColumnType("int");
 
-                    b.Property<string>("albumCover")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("name")
                         .HasColumnType("nvarchar(max)");
 
@@ -358,9 +357,6 @@ namespace Spotify_clone2.Migrations
                     b.Property<string>("nomSong")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("songPath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("views")
                         .HasColumnType("int");
 
@@ -386,9 +382,6 @@ namespace Spotify_clone2.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Prenom")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("avatar")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("User");

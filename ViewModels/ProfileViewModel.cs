@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Spotify_clone2.ViewModels
 {
@@ -10,6 +8,7 @@ namespace Spotify_clone2.ViewModels
     {
         public ChangePasswordViewModel ChangePasswordViewModel { get; set; }
         public UserDetailViewModel UserDetailViewModel { get; set; }
+        public ChangePhoto changePhoto { get; set; }
     }
     public class UserDetailViewModel
     {
@@ -51,5 +50,9 @@ namespace Spotify_clone2.ViewModels
         [Compare("NewPassword", ErrorMessage = "Password and confirmation password not match.")]
         public string ConfirmPassword { get; set; }
     }
+    public class ChangePhoto
+    {
+        public IFormFile coverPhoto { get; set; }
 
+    }
 }

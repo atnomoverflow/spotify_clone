@@ -19,35 +19,13 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="hs-text">
-                                <h2><span>Music</span> for everyone.</h2>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.
-                                </p>
-                                <a href="#" class="site-btn">Download Now</a>
-                                <a href="#" class="site-btn sb-c2">Start free trial</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="hr-img">
-                                <img src="~/img/hero-bg.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="hs-item">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="hs-text">
                                 <h2><span>Listen </span> to new music.</h2>
                                 <p>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                                     ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.
                                 </p>
-                                <a href="#" class="site-btn">Download Now</a>
-                                <a href="#" class="site-btn sb-c2">Start free trial</a>
+                                @Html.ActionLink("Try now", "index", "GateWayForAccounts", null, new { @class = "site-btn sb-c2" })
+
                             </div>
                         </div>
                         <div class="col-lg-6">

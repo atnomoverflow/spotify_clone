@@ -15,14 +15,12 @@
     <div class="container">
         <div class="col" style="justify-content: center;display: flex;">
             <div class="col-md-8">
-                @using (Html.BeginForm("Create", "Albums", FormMethod.Post))
-                {
-                    @Html.ValidationSummary(false,"",new { @class = "text-danger"})
-
+                <form method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="mb-3">
-                        @Html.LabelFor(model => model.name,new { @class ="form-label" })
-                        @Html.TextBoxFor(model => model.name,new { @class ="form-control" })
-                        @Html.ValidationMessageFor(model => model.name,"",new { @class = "text-danger" })
+                        <label asp-for="name" class="form-label"></label>
+                        <input asp-for="name" class="form-control" />
+                        <span asp-validation-for="name" class="field-validation-valid text-danger"></span>
                     </div>
                     <div id="newRow">
                         <input type="hidden" id="total" value="0" />
@@ -35,8 +33,7 @@
                         <button type="submit" class="btn btn-blue text-center">Create</button>
                     </div>
 
-                }
-
+                </form>
             </div>
         </div>
     </div>
@@ -81,6 +78,10 @@
         html += '</select>'
         html += '</div>'
         html += '<div class="mb-3">'
+        html += '<div class="form-group">'
+        html += '<label for="songs[' + (rowCount - 1) + '].song">upload Song</label>'
+        html += '<input class="form-control" type="file" id="songs[' + (rowCount - 1) + '].song" name="songs[' + (rowCount - 1) + '].song" multiple required>'
+        html += '</div>'
         //add more inputs here...
         html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>'
         html += '</div >'

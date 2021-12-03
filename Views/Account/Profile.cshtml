@@ -5,22 +5,52 @@
 
 @{
     ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_RGateway.cshtml";
+
 
 }
-
-<section class="player-section set-bg" data-setbg="/img/player-bg.jpg">
-    <div class="player-box">
+@section Style
+{
+<style>
+    .tarck-thumb:hover .hoverop {
+        opacity: 0.2;
+    }
+</style>
+}
+<section class="player-section set-bg" data-setbg="/img/pexels-daniel-reche-3721941.jpg">
+    <div class="player-box" style="background: transparent;">
         <div class="tarck-thumb-warp">
             <div class="tarck-thumb">
-                <img src="~/img/wave-thumb.jpg" alt="">
+                <form action="/Account/changePhoto" id="changePhoto" enctype="multipart/form-data" method="post">
+                    <div class="validation-summary-valid text-danger" data-valmsg-summary="true">
+                        <ul>
+                            <li style="display:none"></li>
+                        </ul>
+                    </div>
+                    <label class="form-label" asp-for="changePhoto.coverPhoto">
+                        @if (@ViewBag.avatar != null)
+                        {
+
+                            <img src="~/img/@ViewBag.avatar" id="avatar" class="hoverop" alt="">
+                        }
+                        else
+                        {
+                            <img src="~/img/wave-thumb.jpg" id="avatar" class="hoverop" alt="">
+
+                        }
+                        <input asp-for="changePhoto.coverPhoto" onchange="readURL(this);" type="file"
+                            name="changePhoto.coverPhoto" style="display:none">
+                    </label>
+                    <button type="submit" class="btn btn-secondary">Upload</button>
+                </form>
             </div>
         </div>
         <div class="wave-player-warp">
             <div class="row">
                 <div class="col-lg-8">
                     <div class="wave-player-info">
-                        <h2>@ViewBag.clientPrenom @ViewBag.clientNom </h2>
-                        <p>@ViewBag.clientEmail</p>
+                        <h2 style="color: #d5ad1c;">@ViewBag.clientPrenom @ViewBag.clientNom </h2>
+                        <p style="color:#fff">@ViewBag.clientEmail</p>
                     </div>
                 </div>
             </div>
@@ -84,7 +114,7 @@
                     <div class="col-lg-12">
                         <div class="song-details-box">
                             <h3>Change Password</h3>
-                            <form action="/Account/changePassword" id="userDetail" method="post">
+                            <form action="/Account/changePassword" id="userPassword" method="post">
                                 <div class="validation-summary-valid text-danger" data-valmsg-summary="true">
                                     <ul>
                                         <li style="display:none"></li>
@@ -118,3 +148,41 @@
                 </div>
             </div>
 </section>
+@section Scripts
+{
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+    $(function () {
+        $("#changePhoto").submit(function (e) {
+            e.preventDefault();
+            var formAction = $(this).attr("action");
+            var fdata = new FormData();
+            var fileInput = $('#changePhoto_coverPhoto')[0];
+            var file = fileInput.files[0];
+            fdata.append("changePhoto.coverPhoto", file);
+
+            $.ajax({
+                type: 'post',
+                url: formAction,
+                data: fdata,
+                processData: false,
+                contentType: false
+            }).done(function (result) {
+
+            });
+        });
+    })
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#avatar').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
+}

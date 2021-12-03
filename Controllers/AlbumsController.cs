@@ -1,13 +1,11 @@
-﻿using System.Collections.ObjectModel;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Spotify_clone2.Models;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using System.Net.Http.Headers;
 using System.IO;
 using Spotify_clone2.ViewModels;
 namespace Spotify_clone2.Controllers
@@ -17,7 +15,7 @@ namespace Spotify_clone2.Controllers
         private readonly AppDbContext _context;
         private IWebHostEnvironment _hostingEnv;
 
-        public AlbumsController(AppDbContext context,IWebHostEnvironment hostingEnv)
+        public AlbumsController(AppDbContext context, IWebHostEnvironment hostingEnv)
         {
             _context = context;
             _hostingEnv = hostingEnv;
@@ -62,20 +60,39 @@ namespace Spotify_clone2.Controllers
         {
             if (ModelState.IsValid)
             {
-                Collection<Song> songs= new Collection<Song>();
-                foreach( var songData  in album.songs){
+                Collection<Song> songs = new Collection<Song>();
+                foreach (var songData in album.songs)
+                {
+                    var uniqueSongName = GetUniqueFileName(songData.song.FileName);
+                    var songDir = Path.Combine(_hostingEnv.ContentRootPath, "wwwroot/Song");
+                    if (!Directory.Exists(songDir))
+                    {
+                        Directory.CreateDirectory(songDir);
+                    }
+                    var songPath = Path.Combine(songDir, uniqueSongName);
+                    await songData.song.CopyToAsync(new FileStream(songPath, FileMode.Create));
                     var newSong = new Song()
                     {
+                        songPath = songPath,
                         nomSong = songData.nom,
                         description = songData.description,
                         category = songData.Category
-                };
+                    };
                     songs.Add(newSong);
                 }
+                var uniqueAlbumName = GetUniqueFileName(album.albumCover.FileName);
+                var AlbumDir = Path.Combine(_hostingEnv.ContentRootPath, "wwwroot/img/album");
+                if (!Directory.Exists(AlbumDir))
+                {
+                    Directory.CreateDirectory(AlbumDir);
+                }
+                var filePath = Path.Combine(AlbumDir, uniqueAlbumName);
+                await album.albumCover.CopyToAsync(new FileStream(filePath, FileMode.Create));
                 Album newAlbum = new Album()
                 {
+                    albumCover = uniqueAlbumName,
                     name = album.name,
-                    songs = songs                
+                    songs = songs
                 };
                 _context.Add(newAlbum);
                 await _context.SaveChangesAsync();
@@ -83,7 +100,14 @@ namespace Spotify_clone2.Controllers
             }
             return View(album);
         }
-
+        private string GetUniqueFileName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+            return Path.GetFileNameWithoutExtension(fileName)
+                   + "_"
+                   + Guid.NewGuid().ToString().Substring(0, 4)
+                   + Path.GetExtension(fileName);
+        }
         // GET: Albums/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

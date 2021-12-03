@@ -52,7 +52,8 @@
                 @if (!User.Identity.IsAuthenticated)
                 {
                     @Html.ActionLink("Login", "index", "GateWayForAccounts", null, new { @class = "login" })
-                    @Html.ActionLink("Create an account", "register", "Account", null, new { @class = "register" })
+                    @Html.ActionLink("Create an account", "register", "GateWayForAccounts", null, new { @class = "register"
+                })
                 }
                 else
                 {
@@ -74,7 +75,7 @@
 
 
     <!-- Footer section -->
-    <footer class="footer-section" style="background-color: #08192d;">
+    <footer class="footer-section" style="background-color: #08192d;position: fixed;bottom: 0;width: 100%;">
         <div class="container">
             <div class="row">
                 <div class="col-xl-6 col-lg-7 order-lg-2">
@@ -84,8 +85,6 @@
                                 <h2>About us</h2>
                                 <ul>
                                     <li><a href="">Our Story</a></li>
-                                    <li><a href="">Sol Music Blog</a></li>
-                                    <li><a href="">History</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -94,9 +93,7 @@
                                 <h2>Products</h2>
                                 <ul>
                                     <li><a href="">Music</a></li>
-                                    <li><a href="">Subscription</a></li>
-                                    <li><a href="">Custom Music</a></li>
-                                    <li><a href="">Footage</a></li>
+                                    <li>@Html.ActionLink("Subscription", "index", "premium", null, new { })</li>
                                 </ul>
                             </div>
                         </div>
@@ -104,9 +101,6 @@
                             <div class="footer-widget">
                                 <h2>Playlists</h2>
                                 <ul>
-                                    <li><a href="">Newsletter</a></li>
-                                    <li><a href="">Careers</a></li>
-                                    <li><a href="">Press</a></li>
                                     <li><a href="">Contact</a></li>
                                 </ul>
                             </div>
@@ -115,21 +109,6 @@
                 </div>
                 <div class="col-xl-6 col-lg-5 order-lg-1">
                     <img src="~/img/logo.png" alt="">
-                    <div class="copyright">
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;
-                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template
-                        is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                            target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </div>
-                    <div class="social-links">
-                        <a href=""><i class="fa fa-instagram"></i></a>
-                        <a href=""><i class="fa fa-pinterest"></i></a>
-                        <a href=""><i class="fa fa-facebook"></i></a>
-                        <a href=""><i class="fa fa-twitter"></i></a>
-                        <a href=""><i class="fa fa-youtube"></i></a>
-                    </div>
                 </div>
             </div>
         </div>

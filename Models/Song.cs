@@ -67,6 +67,7 @@ namespace Spotify_clone2.Models
         public int SongId { get; set; }
         public string nomSong { get; set; }
         public string description { get; set; }
+        public string songPath { get; set; }
         public double duration { get; set; }
         public Category category { get; set; }
        /* public ICollection<Enum> tags { get; set; }*/
