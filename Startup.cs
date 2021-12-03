@@ -41,7 +41,7 @@ namespace Spotify_clone2
             services.AddDbContext<AppDbContext>();
             services.AddScoped<IMembershipRepository, MembershipRepository>();
             services.AddScoped<IClientRepository, ClientRepository>();
-
+            services.AddScoped<IArtistRepository, ArtistRepository>();
             services.AddIdentity<User, IdentityRole>()
             .AddEntityFrameworkStores<AppDbContext>();
             services.AddControllersWithViews();

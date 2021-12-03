@@ -42,6 +42,12 @@ namespace Spotify_clone2.Controllers
 
             return View(artist);
         }
+         [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Register()
+        {
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
