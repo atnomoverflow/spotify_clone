@@ -27,7 +27,7 @@
                 <input asp-for="duration" class="form-control" />
                 <span asp-validation-for="duration" class="text-danger"></span>
             </div>
-            <div class="form-group"
+            <div class="form-group">
                 <label asp-for="category" class="control-label"></label>
                 <select asp-for="category" asp-items="Html.GetEnumSelectList(typeof (Category))"></select>
                 <span asp-validation-for="category" class="text-danger"></span>
@@ -40,7 +40,7 @@
             <div class="form-group">
                 <label asp-for="views" class="control-label"></label>
                 <input asp-for="views" class="form-control" />
-                <span asp-validation-for="views" class="text-danger"></span>
+                <span asp-validation-for="views" class="text-danger"></span>²²²
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
