@@ -33,7 +33,7 @@ namespace Spotify_clone2.Controllers
         public async Task<IActionResult> Profile()
         {
             string userId = _userManager.GetUserId(HttpContext.User);
-            var client = await _clientRepository.GetByIdAsync(userId);
+            var client = await _userManager.FindByIdAsync(userId);
             ViewBag.clientNom = client.Nom;
             ViewBag.clientPrenom = client.Prenom;
             ViewBag.clientEmail = client.Email;

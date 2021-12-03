@@ -19,12 +19,15 @@ namespace server.Controllers
         private readonly IStripeClient client;
         private readonly UserManager<User> _userManager;
         private readonly IMembershipRepository _membershipRepository;
-        public PaymentsController(IOptions<StripeOptions> options, UserManager<User> userManager, IMembershipRepository membershipRepository)
+        private readonly IClientRepository _clientRepository;
+        public PaymentsController(IOptions<StripeOptions> options, UserManager<User> userManager, IMembershipRepository membershipRepository 
+            ,IClientRepository clientRepository)
         {
             _userManager = userManager;
             this.options = options;
             this.client = new StripeClient(this.options.Value.SecretKey);
             _membershipRepository = membershipRepository;
+            _clientRepository = clientRepository;
         }
 
         [HttpGet("config")]
@@ -145,9 +148,11 @@ namespace server.Controllers
             {
                 var userFromDb = await _userManager.FindByEmailAsync(customer.Email);
 
+                var clientFromDb = await _clientRepository.GetByUserIdAsync(userFromDb.Id);
+
                 if (userFromDb != null)
                 {
-                    userFromDb.Id = customer.Id;
+                    clientFromDb.CustomerId = customer.Id;
                     await _userManager.UpdateAsync(userFromDb);
                     Console.WriteLine("Customer Id added to user ");
                 }
