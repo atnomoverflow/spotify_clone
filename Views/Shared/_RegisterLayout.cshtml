@@ -36,7 +36,7 @@
 
 </head>
 
-<body>
+<body style="background-color: #08192d;">
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -51,7 +51,7 @@
             <div class="user-panel">
                 @if (!User.Identity.IsAuthenticated)
                 {
-                    @Html.ActionLink("Login", "login", "Account", null, new { @class = "login" })
+                    @Html.ActionLink("Login", "index", "GateWayForAccounts", null, new { @class = "login" })
                     @Html.ActionLink("Create an account", "register", "Account", null, new { @class = "register" })
                 }
                 else
@@ -74,7 +74,7 @@
 
 
     <!-- Footer section -->
-    <footer class="footer-section">
+    <footer class="footer-section" style="background-color: #08192d;">
         <div class="container">
             <div class="row">
                 <div class="col-xl-6 col-lg-7 order-lg-2">

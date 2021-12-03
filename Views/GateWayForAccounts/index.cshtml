@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_RegisterLayout.cshtml";
+}
+<img src="~/img/SL_123119_26540_09.jpg" style="width: 100%;position: absolute;object-fit: cover;height: 60%;">
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto"
+    style="min-height: 60%;padding-right:40rem!important;padding-left:40rem!important;padding-top: 15rem!important;background: transparent;">
+    <div class="card  border-0" style="background: transparent;">
+        <div class="row" style="padding: 10px;justify-content: center;">
+            <div class="col-sm-4 py-2">
+                <div class="card h-100" style="background: transparent;">
+                    <div class="card-body">
+                        <h3 class="card-title" style="color: #c14b8a;">Casual</h3>
+                    @Html.ActionLink("login as Casual", "login", "Account", null, new { @class="btn btn-outline-secondary"})
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 py-2">
+                <div class="card h-100 " style="background: transparent;">
+                    <div class="card-body">
+                        <h3 class="card-title" style="color: #c14b8a;">Artist</h3>
+                    @Html.ActionLink("Login as Artist", "login", "Artist", null, new { @class="btn btn-outline-secondary"})
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

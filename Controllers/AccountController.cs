@@ -42,11 +42,6 @@ namespace Spotify_clone2.Controllers
             return View();
         }
 
-
-
-
-
-
         [Authorize(Roles = "client")]
         [HttpPost]
         public async Task<IActionResult> changeUserDetail(ProfileViewModel model)

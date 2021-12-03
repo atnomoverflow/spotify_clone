@@ -1,21 +1,26 @@
-﻿using System;
+﻿using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Spotify_clone2.Models;
-
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http.Headers;
+using System.IO;
+using Spotify_clone2.ViewModels;
 namespace Spotify_clone2.Controllers
 {
     public class AlbumsController : Controller
     {
         private readonly AppDbContext _context;
+        private IWebHostEnvironment _hostingEnv;
 
-        public AlbumsController(AppDbContext context)
+        public AlbumsController(AppDbContext context,IWebHostEnvironment hostingEnv)
         {
             _context = context;
+            _hostingEnv = hostingEnv;
         }
 
         // GET: Albums
@@ -53,11 +58,26 @@ namespace Spotify_clone2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AlbumId,name")] Album album)
+        public async Task<IActionResult> Create(CreateAlbumViewModel album)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(album);
+                Collection<Song> songs= new Collection<Song>();
+                foreach( var songData  in album.songs){
+                    var newSong = new Song()
+                    {
+                        nomSong = songData.nom,
+                        description = songData.description,
+                        category = songData.Category
+                };
+                    songs.Add(newSong);
+                }
+                Album newAlbum = new Album()
+                {
+                    name = album.name,
+                    songs = songs                
+                };
+                _context.Add(newAlbum);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

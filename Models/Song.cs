@@ -1,31 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
+using System.ComponentModel.DataAnnotations;
 
 namespace Spotify_clone2.Models
 {
-    public enum Category
+      public enum Category
     {
-         Pop,
-         Classical,
-         Hip_Hop,
-         EDM,
-         Country,
-         Metal,
-         Gospel,
-         Folk,
-         Jazz,
-         Ballads,
-         Blues,
-         Funk,
-         Reggae,
-         Ambient,
+        [Display(Name = "Pop")]
+        Pop,
+        [Display(Name = "Classical")]
+        Classical,
+        [Display(Name = "Hip Hop")]
+        Hip_Hop,
+        [Display(Name = "EDM")]
+        EDM,
+        [Display(Name = "Country")]
+        Country,
+        [Display(Name = "Metal")]
+        Metal,
+        [Display(Name = "Gospel")]
+        Gospel,
+        [Display(Name = "Folk")]
+        Folk,
+        [Display(Name = "Jazz")]
+        Jazz,
+        [Display(Name = "Ballads")]
+        Ballads,
+        [Display(Name = "Blues")]
+        Blues,
+        [Display(Name = "Funk")]
+        Funk,
+        [Display(Name = "Reggae")]
+        Reggae,
+        [Display(Name = "Ambient")]
+        Ambient,
+        [Display(Name = "World")]
         World
     }
-    public enum tags
+    public enum Tags
     {
-        quitar, piano, music, electronic, minimal, chill, pop, cultural, live, popular
+        [Display(Name = "quitar")]
+        quitar,
+        [Display(Name = "piano")]
+        piano,
+        [Display(Name = "music")]
+        music,
+        [Display(Name = "electronic")]
+        electronic,
+        [Display(Name = "minimal")]
+        minimal,
+        [Display(Name = "chill")]
+        chill,
+        [Display(Name = "pop")]
+        pop,
+        [Display(Name = "cultural")]
+        cultural,
+        [Display(Name = "live")]
+        live,
+        [Display(Name = "popular")]
+        popular
+
     }
 
 

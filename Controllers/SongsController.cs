@@ -42,78 +42,8 @@ namespace Spotify_clone2.Controllers
             return View(song);
         }
 
-        // GET: Songs/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
 
-        // POST: Songs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SongId,nomSong,description,duration,category,likes,views")] Song song)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(song);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(song);
-        }
-
-        // GET: Songs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var song = await _context.Songs.FindAsync(id);
-            if (song == null)
-            {
-                return NotFound();
-            }
-            return View(song);
-        }
-
-        // POST: Songs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SongId,nomSong,description,duration,category,likes,views")] Song song)
-        {
-            if (id != song.SongId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(song);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SongExists(song.SongId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(song);
-        }
+        
 
         // GET: Songs/Delete/5
         public async Task<IActionResult> Delete(int? id)
