@@ -2,16 +2,14 @@
 
 @{
     ViewData["Title"] = "Details";
-    //Layout = "~/Views/Shared/_ProfileLayout.cshtml";
+    Layout = "~/Views/Shared/_DetailLayout.cshtml";
 
 }
 
 <!-- Category section -->
 <section class="category-section spad">
     <div class="container-fluid">
-        <div class="section-title">
-            <h2>Live Concert Playlist</h2>
-        </div>
+
         <div class="category-items">
             <div class="row">
                 <div class="col-md-4">
@@ -108,7 +106,6 @@
                 else
                 {
                     <a href='@Url.Action("Details", new { pageNumber = @index+1 })'>0@(index+1).</a>
-
                 }
             }
         </div>

@@ -30,13 +30,11 @@
                     <label class="form-label" asp-for="changePhoto.coverPhoto">
                         @if (@ViewBag.avatar != null)
                         {
-
                             <img src="~/img/@ViewBag.avatar" id="avatar" class="hoverop" alt="">
                         }
                         else
                         {
                             <img src="~/img/wave-thumb.jpg" id="avatar" class="hoverop" alt="">
-
                         }
                         <input asp-for="changePhoto.coverPhoto" onchange="readURL(this);" type="file"
                             name="changePhoto.coverPhoto" style="display:none">
