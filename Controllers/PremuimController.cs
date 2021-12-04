@@ -15,8 +15,6 @@ namespace Spotify_clone2.Controllers
         public IActionResult Index()
         {
             return View();
-        }
-
-        
+        }  
     }
 }

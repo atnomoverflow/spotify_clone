@@ -16,6 +16,7 @@ namespace Spotify_clone2.Repositories
 		Task<Client> GetByUserIdAsync(string id);
 		Task<User> CreateAsync(User client);
 		Task DeleteAsync(User client);
+        Client getByUserName(string username);
 
 	}
 }

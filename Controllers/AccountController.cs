@@ -199,21 +199,27 @@ namespace Spotify_clone2.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel user)
+        public async Task<IActionResult> Login(LoginViewModel userModel)
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(user.Username, user.Password, user.RememberMe, false);
+                var result = await _signInManager.PasswordSignInAsync(userModel.Username, userModel.Password, userModel.RememberMe, false);
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
-                }
+                    var client = _clientRepository.getByUserName(userModel.Username);
+                    if (client!=null)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
 
+                    ModelState.AddModelError(string.Empty, "You are not a client");
+                    await _signInManager.SignOutAsync();
+                }
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
 
             }
-            return View(user);
+            return View(userModel);
         }
 
         public async Task<IActionResult> Logout()

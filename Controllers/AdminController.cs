@@ -16,9 +16,6 @@ namespace Spotify_clone2.Controllers
         {
             _roleManager = roleManager;
         }
-
-
-
         public IActionResult Index()
         {
             return View();

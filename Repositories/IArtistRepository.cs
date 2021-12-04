@@ -13,5 +13,7 @@ namespace Spotify_clone2.Repositories
         Task<Artiste> CreateAsync(Artiste artist);
         Task DeleteAsync(Artiste artist);
         Task<IList<Song>> getMostPopulareSong(Artiste artiste);
+        Artiste getByUserName(string username);
+        Artiste getByUserID(string id);
     }
 }

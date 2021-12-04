@@ -1,6 +1,6 @@
-﻿using System;
+﻿using System.Net;
+using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,41 +8,49 @@ using Spotify_clone2.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Spotify_clone2.ViewModels;
+using Spotify_clone2.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+
 namespace Spotify_clone2.Controllers
 {
     public class AlbumsController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly IAlbumRepository _albumRepository;
         private IWebHostEnvironment _hostingEnv;
+        private readonly IArtistRepository _artistRepository;
+        private readonly UserManager<User> _userManager;
 
-        public AlbumsController(AppDbContext context, IWebHostEnvironment hostingEnv)
+
+        public AlbumsController(UserManager<User> userManager, IAlbumRepository albumRepository, IArtistRepository artistRepository, IWebHostEnvironment hostingEnv)
         {
-            _context = context;
+            _albumRepository = albumRepository;
             _hostingEnv = hostingEnv;
+            _artistRepository = artistRepository;
+            _userManager = userManager;
         }
 
         // GET: Albums
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Albums.ToListAsync());
+            return View(await _albumRepository.GetAsync());
         }
 
         // GET: Albums/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, int? pageNumber)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var album = await _context.Albums
-                .FirstOrDefaultAsync(m => m.AlbumId == id);
+            var (album, count) = await _albumRepository.GetPageByIdAsync((int)id, pageNumber ?? 1);
             if (album == null)
             {
                 return NotFound();
             }
-
-            return View(album);
+            ViewBag.count = count;
+            ViewBag.pageNumber = pageNumber;
+            return View((album));
         }
 
         // GET: Albums/Create
@@ -54,10 +62,13 @@ namespace Spotify_clone2.Controllers
         // POST: Albums/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "artist")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateAlbumViewModel album)
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            
             if (ModelState.IsValid)
             {
                 Collection<Song> songs = new Collection<Song>();
@@ -71,12 +82,22 @@ namespace Spotify_clone2.Controllers
                     }
                     var songPath = Path.Combine(songDir, uniqueSongName);
                     await songData.song.CopyToAsync(new FileStream(songPath, FileMode.Create));
+                    var uniqueSongCoverName = GetUniqueFileName(songData.songCover.FileName);
+                    var songCoverDir = Path.Combine(_hostingEnv.ContentRootPath, "wwwroot/img/songsCover");
+                    if (!Directory.Exists(songCoverDir))
+                    {
+                        Directory.CreateDirectory(songCoverDir);
+                    }
+                    var songCoverPath = Path.Combine(songCoverDir, uniqueSongCoverName);
+                    await songData.songCover.CopyToAsync(new FileStream(songCoverPath, FileMode.Create));
                     var newSong = new Song()
                     {
-                        songPath = songPath,
+                        songPath = uniqueSongName,
                         nomSong = songData.nom,
                         description = songData.description,
-                        category = songData.Category
+                        category = songData.Category,
+                        songCover = uniqueSongCoverName,
+                        artiste=user.artiste
                     };
                     songs.Add(newSong);
                 }
@@ -88,14 +109,17 @@ namespace Spotify_clone2.Controllers
                 }
                 var filePath = Path.Combine(AlbumDir, uniqueAlbumName);
                 await album.albumCover.CopyToAsync(new FileStream(filePath, FileMode.Create));
-                Album newAlbum = new Album()
+                var artiste = _artistRepository.getByUserID(user.Id);
+                Album album1 = new Album()
                 {
                     albumCover = uniqueAlbumName,
                     name = album.name,
-                    songs = songs
+                    Songs = songs,
+                    Artiste = artiste,
+                    ArtisteID = artiste.ArtisteId
                 };
-                _context.Add(newAlbum);
-                await _context.SaveChangesAsync();
+                
+                await _albumRepository.CreateAsync(album1);
                 return RedirectToAction(nameof(Index));
             }
             return View(album);
@@ -108,6 +132,7 @@ namespace Spotify_clone2.Controllers
                    + Guid.NewGuid().ToString().Substring(0, 4)
                    + Path.GetExtension(fileName);
         }
+
         // GET: Albums/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -116,7 +141,7 @@ namespace Spotify_clone2.Controllers
                 return NotFound();
             }
 
-            var album = await _context.Albums.FindAsync(id);
+            var album = await _albumRepository.GetByIdAsync((int)id);
             if (album == null)
             {
                 return NotFound();
@@ -140,12 +165,12 @@ namespace Spotify_clone2.Controllers
             {
                 try
                 {
-                    _context.Update(album);
-                    await _context.SaveChangesAsync();
+                    await _albumRepository.UpdateAsync(album);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AlbumExists(album.AlbumId))
+                    bool albumExist = await _albumRepository.AlbumExist(album.AlbumId);
+                    if (!albumExist)
                     {
                         return NotFound();
                     }
@@ -167,8 +192,7 @@ namespace Spotify_clone2.Controllers
                 return NotFound();
             }
 
-            var album = await _context.Albums
-                .FirstOrDefaultAsync(m => m.AlbumId == id);
+            var album = await _albumRepository.GetByIdAsync((int)id);
             if (album == null)
             {
                 return NotFound();
@@ -182,15 +206,9 @@ namespace Spotify_clone2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var album = await _context.Albums.FindAsync(id);
-            _context.Albums.Remove(album);
-            await _context.SaveChangesAsync();
+            var album = await _albumRepository.GetByIdAsync(id);
+            await _albumRepository.DeleteAsync(album);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool AlbumExists(int id)
-        {
-            return _context.Albums.Any(e => e.AlbumId == id);
         }
 
 
@@ -201,13 +219,11 @@ namespace Spotify_clone2.Controllers
                 return NotFound();
             }
 
-            var album = await _context.Albums
-                .FirstOrDefaultAsync(m => m.AlbumId == id);
+            var album = await _albumRepository.GetByIdAsync((int)id);
             if (album == null)
             {
                 return NotFound();
             }
-
             return View(album);
         }
 

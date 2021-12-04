@@ -19,9 +19,6 @@
                 @Html.DisplayNameFor(model => model.description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.duration)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.category)
             </th>
             <th>
@@ -29,6 +26,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.views)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.AlbumId)
             </th>
             <th></th>
         </tr>
@@ -43,9 +43,6 @@
                 @Html.DisplayFor(modelItem => item.description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.duration)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.category)
             </td>
             <td>
@@ -53,6 +50,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.views)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlbumId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.SongId">Edit</a> |

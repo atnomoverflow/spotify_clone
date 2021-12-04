@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Spotify_clone2.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 
 namespace Spotify_clone2.Repositories
@@ -51,6 +52,14 @@ namespace Spotify_clone2.Repositories
             _context.Clients.UpdateRange(client.client);
             await _context.SaveChangesAsync();
             return client;
+        }
+
+        public Client getByUserName(string username)
+        {
+            var user = (from usr in _context.Clients
+                        where usr.user.UserName == username
+                        select usr).FirstOrDefault();
+            return user;
         }
     }
 }

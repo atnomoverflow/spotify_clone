@@ -16,11 +16,13 @@ namespace Spotify_clone2.Controllers
         private readonly IArtistRepository _artistRepository;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-
+        private readonly AppDbContext _context;
         public ArtistController(UserManager<User> userManager,
                               SignInManager<User> signInManager,
-                              IArtistRepository artistRepository)
+                              IArtistRepository artistRepository,
+                              AppDbContext context)
         {
+            _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _artistRepository = artistRepository;
@@ -42,7 +44,7 @@ namespace Spotify_clone2.Controllers
 
             return View(artist);
         }
-         [HttpGet]
+        [HttpGet]
         [AllowAnonymous]
         public IActionResult Register()
         {
@@ -92,21 +94,26 @@ namespace Spotify_clone2.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel user)
+        public async Task<IActionResult> Login(LoginViewModel userModel)
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(user.Username, user.Password, user.RememberMe, false);
 
+                var result = await _signInManager.PasswordSignInAsync(userModel.Username, userModel.Password, userModel.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    var user = _artistRepository.getByUserName(userModel.Username);
+                    if (user!=null)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    await _signInManager.SignOutAsync();
+                    ModelState.AddModelError(string.Empty, "You are not an artist");
                 }
-
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
 
             }
-            return View(user);
+            return View(userModel);
         }
         [Authorize(Roles = "artist")]
         public async Task<IActionResult> Logout()

@@ -7,10 +7,12 @@ namespace Spotify_clone2.Models
 {
     public class Album
     {
-        public Artiste artiste { get; set; }
+        public Artiste Artiste { get; set; }
+        public int ArtisteID { get; set; }
+
         public int AlbumId { get; set; }
         public string name { get; set; }
         public string albumCover { get; set; }
-        public ICollection<Song> songs { get; set; }
+        public ICollection<Song> Songs { get; set; }
     }
 }
