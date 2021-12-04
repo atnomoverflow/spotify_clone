@@ -1,11 +1,14 @@
 ﻿@inject Microsoft.AspNetCore.Identity.UserManager<User> UserManager
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @inject Spotify_clone2.Repositories.IClientRepository clientRepository
+@inject Spotify_clone2.Repositories.IArtistRepository artistRepository
+
 @{
     ViewData["Title"] = "Home Page";
     string currentUserId = UserManager.GetUserId(HttpContextAccessor.HttpContext.User);
     var currentUser = await UserManager.FindByIdAsync(currentUserId);
     var currentClient = await clientRepository.GetByUserIdAsync(currentUserId);
+    var currentArtist = await artistRepository.GetByUserIdAsync(currentUserId);
 
 }
 
@@ -88,53 +91,55 @@
 }
 else
 {
-    @if (currentClient.CustomerId == null)
+    @if ((currentClient != null) && (currentArtist == null))
     {
+        @if (currentClient.CustomerId == null)
+        {
+
+<!-- Intro section -->
 
 
-        <!-- Intro section -->
-
-
-        <section class="bIHSwp hHufoi ljDxYi">
-            <article class="big-intro ipCjpM bIHSwp">
-                <header class="JhijG">
-                    <div class="cmKgZi">
-                        <div>
-                            <h2 class="ckYsIr passPrem">Passez à Premium. Faites-vous plaisir.</h2>
-                        </div>
-                    </div>
-                    <a href="#" class="kNMnkF bIHSwp">
-                        <div class=" ButtonLegacy__ButtonLegacyInner-o653de-0 bJfOgr iNRzte">
-                            <span>Essayez-le maintenant !</span>
-                        </div>
-                        <div class="ButtonFocus-sc-2hq6ey-0 cIUEfL"></div>
-                    </a>
-
-                    <footer class="fTLLNh">
-                        <p class="eNpfYQ gdCoUB">
-                            * Offre soumise aux Conditions générales. Réservée aux utilisateurs n'ayant jamais essayé Premium.
-                        </p>
-                    </footer>
-                </header>
-            </article>
-        </section>
-
-
-        <section class="jSIoOu bFCFbb">
-            <article color="#1ed760" class="YKUuT">
-                <div class="cILGdH">
-                    <h1 class="eJVJbS kvHAyu">Envie de musique ?</h1>
-                    <h2 class="biCrdv eJVJbS">Écoutez le meilleur des dernières sorties.</h2>
-                    <div class="iEwfBs">
-                        <a href="#" class="kNMnkF iNRzte">
-                            <div class="fevbWz">Ouvrir le lecteur web</div>
-                        </a>
+    <section class="bIHSwp hHufoi ljDxYi">
+        <article class="big-intro ipCjpM bIHSwp">
+            <header class="JhijG">
+                <div class="cmKgZi">
+                    <div>
+                        <h2 class="ckYsIr passPrem">Passez à Premium. Faites-vous plaisir.</h2>
                     </div>
                 </div>
-            </article>
-        </section>
-    }
-    else {
+                <a href="#" class="kNMnkF bIHSwp">
+                    <div class=" ButtonLegacy__ButtonLegacyInner-o653de-0 bJfOgr iNRzte">
+                        <span>Essayez-le maintenant !</span>
+                    </div>
+                    <div class="ButtonFocus-sc-2hq6ey-0 cIUEfL"></div>
+                </a>
+
+                <footer class="fTLLNh">
+                    <p class="eNpfYQ gdCoUB">
+                        * Offre soumise aux Conditions générales. Réservée aux utilisateurs n'ayant jamais essayé Premium.
+                    </p>
+                </footer>
+            </header>
+        </article>
+    </section>
+
+
+    <section class="jSIoOu bFCFbb">
+        <article color="#1ed760" class="YKUuT">
+            <div class="cILGdH">
+                <h1 class="eJVJbS kvHAyu">Envie de musique ?</h1>
+                <h2 class="biCrdv eJVJbS">Écoutez le meilleur des dernières sorties.</h2>
+                <div class="iEwfBs">
+                    <a href="#" class="kNMnkF iNRzte">
+                        <div class="fevbWz">Ouvrir le lecteur web</div>
+                    </a>
+                </div>
+            </div>
+        </article>
+    </section>
+        }
+        else
+        {
 <section class="jSIoOu bFCFbb">
     <article color="#aabc31" class="YKUuT">
         <div class="cILGdH">
@@ -149,6 +154,55 @@ else
         </div>
     </article>
 </section>
-    }
+        }}
+    else
+    {
+       <style>
+        .banner-area {
+          background: url(../img/artiste/banner-bg.jpg) no-repeat center center/cover;
+        }
+        .banner-area .fullscreen {
+          height: 700px !important;
+         }
+         .relative {
+            position: relative;
+         }
+         .row.no-margin {
+                margin-left: 0;
+                margin-right: 0;
+         }
+        .banner-content h1 {
+                color: #fff;
+                font-size: 124px;
+                letter-spacing: 3px;
+                font-weight: 700;
+                line-height: 1.15em;
+                text-shadow: 13px 15px 8px rgba(63, 107, 169, 0.5);
+        }
+        .banner-content p {
+                color: #fff;
+                margin-bottom: 60px;
+                font-weight: 400;
+                letter-spacing: 3px;
+                max-width: 730px;
+                font-size: 16px;
+        }
+ 
+    </style>
+        <section class="banner-area relative">
+        <div class="container">
+            <div class="row fullscreen align-items-center justify-content-center" style="height: 735px;">
+                <div class="col-lg-10">
+                    <div class="banner-content text-center">
+                        <h1 class="text-uppercase text-white">Music is life</h1>
+                        <p class="text-uppercase mx-auto">
+                            Universal Truth
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
 }
 <!-- Intro section end -->

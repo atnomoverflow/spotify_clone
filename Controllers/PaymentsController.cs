@@ -39,7 +39,7 @@ namespace server.Controllers
                 PublishableKey = this.options.Value.PublishableKey,
             };
         }
-        [Authorize]
+        [Authorize(Roles = "client")]
         [HttpPost("create-checkout-session")]
         public async Task<IActionResult> CreateCheckoutSession()
         {
@@ -93,7 +93,8 @@ namespace server.Controllers
         {
             return await _userManager.GetUserAsync(HttpContext.User);
         }
-        [Authorize]
+
+        [Authorize(Roles = "client")]
         [HttpPost("customer-portal")]
         public async Task<IActionResult> CustomerPortal(string sessionId)
         {
