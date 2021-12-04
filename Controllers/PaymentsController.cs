@@ -29,7 +29,6 @@ namespace server.Controllers
             _membershipRepository = membershipRepository;
             _clientRepository = clientRepository;
         }
-
         [HttpGet("config")]
         public ConfigResponse Setup()
         {
@@ -81,7 +80,6 @@ namespace server.Controllers
                 });
             }
         }
-
         [HttpGet("checkout-session")]
         public async Task<IActionResult> CheckoutSession(string sessionId)
         {
@@ -141,7 +139,6 @@ namespace server.Controllers
             }
 
         }
-
         private async Task addCustomerIdToUser(Customer customer)
         {
             try
@@ -164,7 +161,6 @@ namespace server.Controllers
                 Console.WriteLine(ex);
             }
         }
-
         private async Task addSubscriptionToDb(Subscription subscription)
         {
             try

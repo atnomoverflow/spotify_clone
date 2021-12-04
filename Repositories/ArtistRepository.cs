@@ -50,5 +50,13 @@ namespace Spotify_clone2.Repositories
             ).Take(2).ToListAsync();
             return songsQeury;
         }
+
+        public Artiste getByUserName(string username)
+        {
+            var artiste= (from usr in _context.Artistes
+                    where usr.user.UserName == username
+                    select usr).FirstOrDefault();
+            return artiste;
+        }
     }
 }

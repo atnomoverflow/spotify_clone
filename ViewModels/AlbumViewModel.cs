@@ -8,7 +8,6 @@ namespace Spotify_clone2.ViewModels
     {
         public string name { get; set; }
         public IFormFile albumCover { get; set; }
-
         public List<SongViewModel> songs { get; set; }
 
     }
@@ -17,11 +16,12 @@ namespace Spotify_clone2.ViewModels
         public string nom { set; get; }
         public string description { get; set; }
         public IFormFile song { get; set; }
+        public IFormFile songCover { get; set; }
         public Category Category { get; set; }
         public Tags Tag { get; set; }
         public IEnumerable<SelectListItem> categoryList { get; set; }
         public IEnumerable<SelectListItem> tagList { get; set; }
 
     }
-   
+
 }

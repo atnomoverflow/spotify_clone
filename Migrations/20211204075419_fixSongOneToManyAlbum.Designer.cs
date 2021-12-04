@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Spotify_clone2.Models;
 
 namespace Spotify_clone2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211204075419_fixSongOneToManyAlbum")]
+    partial class fixSongOneToManyAlbum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -483,8 +485,8 @@ namespace Spotify_clone2.Migrations
 
             modelBuilder.Entity("Spotify_clone2.Models.Song", b =>
                 {
-                    b.HasOne("Spotify_clone2.Models.Album", "Album")
-                        .WithMany("Songs")
+                    b.HasOne("Spotify_clone2.Models.Album", "album")
+                        .WithMany("songs")
                         .HasForeignKey("AlbumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -497,14 +499,14 @@ namespace Spotify_clone2.Migrations
                         .WithMany("songs")
                         .HasForeignKey("PlayListId");
 
-                    b.Navigation("Album");
+                    b.Navigation("album");
 
                     b.Navigation("artiste");
                 });
 
             modelBuilder.Entity("Spotify_clone2.Models.Album", b =>
                 {
-                    b.Navigation("Songs");
+                    b.Navigation("songs");
                 });
 
             modelBuilder.Entity("Spotify_clone2.Models.Artiste", b =>

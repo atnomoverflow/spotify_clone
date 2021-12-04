@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Spotify_clone2.Models
 {
-      public enum Category
+    public enum Category
     {
         [Display(Name = "Pop")]
         Pop,
@@ -68,10 +68,11 @@ namespace Spotify_clone2.Models
         public string nomSong { get; set; }
         public string description { get; set; }
         public string songPath { get; set; }
-        public double duration { get; set; }
+        public string songCover { get; set; }
         public Category category { get; set; }
-       /* public ICollection<Enum> tags { get; set; }*/
-        public Album album { get; set; }
+        /* public ICollection<Enum> tags { get; set; }*/
+        public int AlbumId { get; set; }
+        public Album Album { get; set; }
         public int likes { get; set; }
         public int views { get; set; }
         public Artiste artiste { get; set; }
