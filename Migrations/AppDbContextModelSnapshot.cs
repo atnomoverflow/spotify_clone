@@ -228,7 +228,7 @@ namespace Spotify_clone2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ArtisteId")
+                    b.Property<int>("ArtisteID")
                         .HasColumnType("int");
 
                     b.Property<string>("albumCover")
@@ -239,7 +239,7 @@ namespace Spotify_clone2.Migrations
 
                     b.HasKey("AlbumId");
 
-                    b.HasIndex("ArtisteId");
+                    b.HasIndex("ArtisteID");
 
                     b.ToTable("Albums");
                 });
@@ -447,11 +447,13 @@ namespace Spotify_clone2.Migrations
 
             modelBuilder.Entity("Spotify_clone2.Models.Album", b =>
                 {
-                    b.HasOne("Spotify_clone2.Models.Artiste", "artiste")
+                    b.HasOne("Spotify_clone2.Models.Artiste", "Artiste")
                         .WithMany("Albums")
-                        .HasForeignKey("ArtisteId");
+                        .HasForeignKey("ArtisteID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("artiste");
+                    b.Navigation("Artiste");
                 });
 
             modelBuilder.Entity("Spotify_clone2.Models.Artiste", b =>

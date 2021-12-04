@@ -35,15 +35,22 @@ namespace Spotify_clone2.Repositories
         {
             return await _context.Albums.ToListAsync();
         }
-
         public async Task<Album> GetByIdAsync(int id)
         {
             var album = await _context.Albums.Include("Songs").FirstOrDefaultAsync(x => x.AlbumId == id);
             return album;
         }
 
-       
-
+        public async Task<(Album, int)> GetPageByIdAsync(int id, int pageNumber = 1)
+        {
+            var albumSongs = _context.Songs.Where(x => x.AlbumId == id);
+            var count = albumSongs.Count();
+            albumSongs = albumSongs.Skip(((int)pageNumber - 1) * 6).Take(6);
+            var album = await _context.Albums.FirstOrDefaultAsync(x => x.AlbumId == id);
+            album.Artiste = await _context.Artistes.Include("user").FirstOrDefaultAsync(x=>x.ArtisteId==album.ArtisteID);
+            album.Songs = await albumSongs.ToListAsync();
+            return (album, count);
+        }
         public async Task<Album> UpdateAsync(Album album)
         {
             _context.UpdateRange(album);

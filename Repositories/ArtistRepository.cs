@@ -58,5 +58,10 @@ namespace Spotify_clone2.Repositories
                     select usr).FirstOrDefault();
             return artiste;
         }
+        public Artiste getByUserID(string id)
+        {
+            var artiste = _context.Artistes.Include("user").SingleOrDefault(x=>x.userID==id);
+            return artiste;
+        }
     }
 }

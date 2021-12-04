@@ -6,7 +6,7 @@
     string currentUserId = UserManager.GetUserId(HttpContextAccessor.HttpContext.User);
     var currentUser = await UserManager.FindByIdAsync(currentUserId);
     var currentClient = await clientRepository.GetByUserIdAsync(currentUserId);
-
+    
 }
 
 @if (!User.Identity.IsAuthenticated)
