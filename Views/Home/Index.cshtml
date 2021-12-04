@@ -8,7 +8,7 @@
     string currentUserId = UserManager.GetUserId(HttpContextAccessor.HttpContext.User);
     var currentUser = await UserManager.FindByIdAsync(currentUserId);
     var currentClient = await clientRepository.GetByUserIdAsync(currentUserId);
-    var currentArtist = await artistRepository.GetByUserIdAsync(currentUserId);
+    var currentArtist =  artistRepository.getByUserID(currentUserId);
 
 }
 
