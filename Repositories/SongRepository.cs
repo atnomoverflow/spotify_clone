@@ -48,7 +48,7 @@ namespace Spotify_clone2.Repositories
         public async Task<IEnumerable<Song>> getMostPopularSong()
         {
             var mostPopularSongQuerry = from song in _context.Songs
-                                        join artiste in _context.Artistes on song.artiste equals artiste
+                                        join artiste in _context.Artistes on song.Album.Artiste equals artiste
                                         join album in _context.Albums on song.Album equals album
                                         orderby song.likes
                                         select song;
@@ -67,7 +67,7 @@ namespace Spotify_clone2.Repositories
         public async Task<IEnumerable<Song>> getMostRecentSong()
         {
             var mostPopularSongQuerry = from song in _context.Songs
-                                        join artiste in _context.Artistes on song.artiste equals artiste
+                                        join artiste in _context.Artistes on song.Album.Artiste equals artiste
                                         join album in _context.Albums on song.Album equals album
                                         orderby song.createdAt
                                         select song;
@@ -77,7 +77,6 @@ namespace Spotify_clone2.Repositories
         public async Task<IEnumerable<Song>> getMostViewsSong()
         {
             var mostPopularSongQuerry = from song in _context.Songs
-                                        join album in _context.Albums on song.Album equals album
                                         orderby song.views
                                         select song;
             var result = await mostPopularSongQuerry.Take(3).ToListAsync();
