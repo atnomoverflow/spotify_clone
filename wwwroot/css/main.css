@@ -116,11 +116,11 @@ body a:hover {
   width: 15%;
 }
 .content__middle {
-  width: 70%;
+  width: 85%;
 }
-.content__right {
+/* .content__right {
   width: 15%;
-}
+} */
 @media (max-width: 1400px) {
   .content__left {
     width: 20%;

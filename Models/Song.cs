@@ -1,6 +1,6 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System;
 
+using System.ComponentModel.DataAnnotations;
 namespace Spotify_clone2.Models
 {
     public enum Category
@@ -75,6 +75,7 @@ namespace Spotify_clone2.Models
         public Album Album { get; set; }
         public int likes { get; set; }
         public int views { get; set; }
+        public DateTime createdAt { get; set; }
         public Artiste artiste { get; set; }
     }
 }

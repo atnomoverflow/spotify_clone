@@ -12,30 +12,32 @@
     <link href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css' rel='stylesheet'>
     <link href='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.3.0/nouislider.min.css' rel='stylesheet'>
     <link href='~/css/main.css' rel='stylesheet'>
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,700" rel='stylesheet'>
+    <link href="~/css/dashbord.css" rel='stylesheet'>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <link href="https://fonts.gstatic.com" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Georama:wght@200;300;500&amp;display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    @* <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/css/slicknav.min.css" /> *@
+
+    <!-- Main Stylesheets -->
+    <link rel="stylesheet" href="~/css/style.css" />
+    @await RenderSectionAsync("Style", required: false)
+
 </head>
 
 <body>
     <section class="header">
 
-        <!--
-  <div class="window__actions">
-    <i class="ion-record red"></i>
-    <i class="ion-record yellow"></i>
-    <i class="ion-record green"></i>
-  </div>
-  -->
-
-        <div class="page-flows">
-
-            <span class="flow">
-                <i class="ion-chevron-left"></i>
-            </span>
-
-            <span class="flow">
-                <i class="ion-chevron-right disabled"></i>
-            </span>
-
-        </div>
 
         <div class="search">
 
@@ -97,13 +99,12 @@
 
     </section>
     @RenderBody()
-    <script>
 
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.3.0/nouislider.min.js"></script>
     <script src="~/js/script.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 
