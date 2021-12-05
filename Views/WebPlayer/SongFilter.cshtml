@@ -1,10 +1,37 @@
 ﻿@{
   ViewData["Title"] = "Create";
-  Layout = "~/Views/Shared/_Dashbord.cshtml";
+  Layout = "~/Views/Shared/_Dashbord copy.cshtml";
 
 }
 @section Style{
+  
 <link rel="stylesheet" href="~/css/dashbord.css">
+<style>
+  .card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+  }
+
+  .scroll-cards-height {
+    position: relative;
+    overflow-y: scroll;
+    height: 400px;
+  }
+
+  /* .card-img-top {
+    height: 20vw;
+    width: 55vw;
+} */
+
+  .card-footer {
+    /* position:absolute; */
+    bottom: 0;
+    border: none;
+    background-color: #FFFFFF;
+  }
+</style>
+<!-- CSS only -->
+
 }
 
 <section class="content">
@@ -24,20 +51,21 @@
 
         <div class="collapse in" id="yourMusic">
 
-          <a href='@Url.Action("Filter", new { option = "Songs" })' class="navigation__list__item">
+           <a href='@Url.Action("SongFilter", new { pageNumber = 1 })' class="navigation__list__item">
             <i class="ion-headphone"></i>
             <span>Songs</span>
           </a>
 
-          <a href='@Url.Action("Filter", new { option = "Albums" })' class="navigation__list__item">
+          <a href='@Url.Action("AlbumFilter", new { pageNumber = 1 })' class="navigation__list__item">
             <i class="ion-ios-musical-notes"></i>
             <span>Albums</span>
           </a>
 
-          <a href='@Url.Action("Filter", new { option = "Artists" })' class="navigation__list__item">
+          <a href='@Url.Action("ArtistFilter", new { pageNumber = 1 })' class="navigation__list__item">
             <i class="ion-person"></i>
             <span>Artists</span>
           </a>
+
 
         </div>
 
@@ -166,18 +194,18 @@
 
         <!-- song -->
 
-        @foreach (var song in @Model)
-        {
-          <div class="card scroll-cards-height">
+        <div class="col-md-3">
+          @foreach (var song in @Model)
+          {
+
             <!-- Card -->
 
-          <div class="card mb-4 mr-2 ml-2">
+            <div class="card mb-4 mr-2 ml-2">
               <div class="card-horizontal pt-1 mb-1 ml-1">
                 <!--Card image-->
               <div class="view overlay">
 
-                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"
-                  alt="Card image cap">
+                  <img class="card-img-top" src="~/img/songsCover/@song.songCover" alt="Card image cap">
                   <a href="#" target="_blank">
                     <div class="mask rgba-white-slight"></div>
                   </a>
@@ -188,9 +216,10 @@
               <div class="card-body">
 
                   <!--Title-->
-                <h6 class="card-title"><a class="text-danger" style="font-weight:bold">Title</a></h6>
+                <h6 class="card-title"><a class="text-danger" style="font-weight:bold">@song.Album.Artiste.User.Nom</a>
+                  </h6>
                   <!--Text-->
-                <p class="card-text"></p>
+                <p class="card-text">@song.nomSong</p>
 
                   <a href="#" class="stretched-link" target="_blank"></a>
 
@@ -199,7 +228,7 @@
                       <a class="mr-1" data-toggle="tooltip" data-placement="top" title="Quick Look">
                         <i class="fas fa-clock grey-text ml-3"></i>
                       </a>
-                      46464
+                      @song.likes
                     </span>
                   </div>
                 </div>
@@ -210,50 +239,11 @@
 
             <!-- Card -->
 
-            <!-- Card -->
 
-          <div class="card mb-4 mr-2 ml-2">
-              <div class="card-horizontal pt-1 mb-1 ml-1">
-                <!--Card image-->
-              <div class="view overlay">
 
-                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"
-                  alt="Card image cap">
-                  <a href="#" target="_blank">
-                    <div class="mask rgba-white-slight"></div>
-                  </a>
-
-                </div>
-
-                <!--Card content-->
-              <div class="card-body">
-
-                  <!--Title-->
-                <h6 class="card-title"><a class="text-danger" style="font-weight:bold">Title</a></h6>
-                  <!--Text-->
-                <p class="card-text">My description</p>
-
-                  <a href="#" class="stretched-link" target="_blank"></a>
-
-                  <div class="card-footer">
-                    <span class="float-left ml-n4">
-                      <a class="mr-1" data-toggle="tooltip" data-placement="top" title="Quick Look">
-                        <i class="fas fa-clock grey-text ml-3"></i>
-                      </a>
-                      46464
-                    </span>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- Card -->
-
+            <!--/.Card-->
+          }
         </div>
-          <!--/.Card-->
-        }
       </div>
     </div>
 
@@ -270,6 +260,9 @@
 @section Scripts
 {
 <!-- Audio Player and Initialization -->
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="~/js/jquery.jplayer.min.js"></script>
 <script src="~/js/jplayerInit.js"></script>
 }

@@ -189,10 +189,10 @@
                     </div>
                     <div class="single_player_container">
                       <div class="single_player">
-                        <div class="jp-jplayer jplayer" data-ancestor=".jp_container_1"
+                        <div class="jp-jplayer jplayer" data-ancestor=".jp_container_@song.SongId@song.likes"
                         data-url='@Url.Content("~/Song/" + song.songPath)'>
                         </div>
-                        <div class="jp-audio jp_container_1" role="application" aria-label="media player">
+                        <div class="jp-audio jp_container_@song.SongId@song.likes" role="application" aria-label="media player">
                           <div class="jp-gui jp-interface">
                             <!-- Player Controls -->
                           <div class="player_controls_box">
@@ -257,10 +257,10 @@
                     </div>
                     <div class="single_player_container">
                       <div class="single_player">
-                        <div class="jp-jplayer jplayer" data-ancestor=".jp_container_1"
+                        <div class="jp-jplayer jplayer" data-ancestor=".jp_container_@song.SongId@song.views"
                         data-url='@Url.Content("~/Song/" + song.songPath)'>
                         </div>
-                        <div class="jp-audio jp_container_1" role="application" aria-label="media player">
+                        <div class="jp-audio jp_container_@song.SongId@song.views" role="application" aria-label="media player">
                           <div class="jp-gui jp-interface">
                             <!-- Player Controls -->
                           <div class="player_controls_box">
@@ -324,7 +324,7 @@
                     </div>
                     <div class="single_player_container">
                       <div class="single_player">
-                        <div class="jp-jplayer jplayer" data-ancestor=".jp_container_1"
+                        <div class="jp-jplayer jplayer" data-ancestor=".jp_container_@song.createdAt@song.SongId"
                         data-url='@Url.Content("~/Song/" + song.songPath)'>
                         </div>
                         <div class="jp-audio jp_container_1" role="application" aria-label="media player">
