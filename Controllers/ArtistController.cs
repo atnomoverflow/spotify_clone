@@ -14,18 +14,20 @@ namespace Spotify_clone2.Controllers
     public class ArtistController : Controller
     {
         private readonly IArtistRepository _artistRepository;
+        private readonly IAlbumRepository _albumRepository;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly AppDbContext _context;
         public ArtistController(UserManager<User> userManager,
                               SignInManager<User> signInManager,
                               IArtistRepository artistRepository,
-                              AppDbContext context)
+                              AppDbContext context, IAlbumRepository albumRepository)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _artistRepository = artistRepository;
+            _albumRepository = albumRepository;
         }
 
         public async Task<IActionResult> ArtistDetail(int? id)
@@ -115,6 +117,26 @@ namespace Spotify_clone2.Controllers
             }
             return View(userModel);
         }
+
+        public async Task<IActionResult> Dashboard()
+        {
+            var currentArtist = _artistRepository.getByUserID(_userManager.GetUserId(HttpContext.User));
+            int id = currentArtist.ArtisteId;
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var (artist, count) = await _albumRepository.GetAlbumsByIdAsync((int)id,  1);
+            if (artist == null)
+            {
+                return NotFound();
+            }
+            ViewBag.count = count;
+            ViewBag.pageNumber = 1;
+            return View((artist));
+        }
+
+
         [Authorize(Roles = "artist")]
         public async Task<IActionResult> Logout()
         {
