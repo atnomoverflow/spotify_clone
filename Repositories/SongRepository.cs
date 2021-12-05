@@ -48,11 +48,16 @@ namespace Spotify_clone2.Repositories
         public async Task<IEnumerable<Song>> getMostPopularSong()
         {
             var mostPopularSongQuerry = from song in _context.Songs
-                                        join artiste in _context.Artistes on song.artiste equals artiste
-                                        join album in _context.Albums on song.Album equals album
                                         orderby song.likes
                                         select song;
-            return await mostPopularSongQuerry.Take(3).ToListAsync();
+            var result = await mostPopularSongQuerry.ToListAsync();
+            foreach (var song in result)
+            {
+                var album = await _context.Albums.FirstOrDefaultAsync(x => x.AlbumID == song.AlbumId);
+                album.Artiste = await _context.Artistes.Include("User").FirstOrDefaultAsync(x => x.ArtisteId == album.ArtisteID);
+                song.Album = album;
+            }
+            return result;
         }
 
 
@@ -67,20 +72,45 @@ namespace Spotify_clone2.Repositories
         public async Task<IEnumerable<Song>> getMostRecentSong()
         {
             var mostPopularSongQuerry = from song in _context.Songs
-                                        join artiste in _context.Artistes on song.artiste equals artiste
-                                        join album in _context.Albums on song.Album equals album
+
                                         orderby song.createdAt
                                         select song;
-            return await mostPopularSongQuerry.Take(3).ToListAsync();
+            var result = await mostPopularSongQuerry.Take(3).ToListAsync();
+            foreach (var song in result)
+            {
+                var album = await _context.Albums.FirstOrDefaultAsync(x => x.AlbumID == song.AlbumId);
+                album.Artiste = await _context.Artistes.Include("User").FirstOrDefaultAsync(x => x.ArtisteId == album.ArtisteID);
+                song.Album = album;
+            }
+            return result;
         }
 
         public async Task<IEnumerable<Song>> getMostViewsSong()
         {
             var mostPopularSongQuerry = from song in _context.Songs
-                                        join album in _context.Albums on song.Album equals album
                                         orderby song.views
                                         select song;
             var result = await mostPopularSongQuerry.Take(3).ToListAsync();
+            result = await addInfo(result);
+            return result;
+        }
+        public async Task<IEnumerable<Song>> getSongPage(int pageNumber, int pageSize)
+        {
+            var PageNumber = pageNumber < 1 ? 1 : pageNumber;
+            var PageSize = pageSize > 10 ? 10 : pageSize;
+            var songsQuerry = (from song in _context.Songs
+                               select song).Skip(((int)pageNumber - 1) * PageSize).Take(PageSize);
+            var song_result = await addInfo(await songsQuerry.ToListAsync());
+            return song_result;
+        }
+        private async Task<List<Song>> addInfo(List<Song> result)
+        {
+            foreach (var song in result)
+            {
+                var album = await _context.Albums.FirstOrDefaultAsync(x => x.AlbumID == song.AlbumId);
+                album.Artiste = await _context.Artistes.Include("User").FirstOrDefaultAsync(x => x.ArtisteId == album.ArtisteID);
+                song.Album = album;
+            }
             return result;
         }
     }

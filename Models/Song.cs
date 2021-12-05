@@ -76,6 +76,5 @@ namespace Spotify_clone2.Models
         public int likes { get; set; }
         public int views { get; set; }
         public DateTime createdAt { get; set; }
-        public Artiste artiste { get; set; }
     }
 }

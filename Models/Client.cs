@@ -10,9 +10,9 @@ namespace Spotify_clone2.Models
     public class Client
     {
         public virtual User user { get; set; }
-        public string userID { get; set; }
+        public string UserID { get; set; }
         public int ClientId { get; set; }
-        public ICollection<PlayList> PlayLists { get; set; }
+        public virtual ICollection<PlayList> PlayLists { get; set; }
         public string CustomerId { get; set; }
     }
 }

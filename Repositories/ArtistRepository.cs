@@ -44,7 +44,7 @@ namespace Spotify_clone2.Repositories
         {
             var songsQeury =
             await (from song in _context.Songs
-                   where song.artiste.ArtisteId == artiste.ArtisteId
+                   where song.Album.Artiste.ArtisteId == artiste.ArtisteId
                    orderby song.likes
                    select song
             ).Take(2).ToListAsync();
@@ -54,13 +54,13 @@ namespace Spotify_clone2.Repositories
         public Artiste getByUserName(string username)
         {
             var artiste= (from usr in _context.Artistes
-                    where usr.user.UserName == username
+                    where usr.User.UserName == username
                     select usr).FirstOrDefault();
             return artiste;
         }
         public Artiste getByUserID(string id)
         {
-            var artiste = _context.Artistes.Include("user").SingleOrDefault(x=>x.userID==id);
+            var artiste = _context.Artistes.SingleOrDefault(x=>x.UserID==id);
             return artiste;
         }
     }

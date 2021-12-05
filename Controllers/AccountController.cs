@@ -167,7 +167,7 @@ namespace Spotify_clone2.Controllers
                     Email = model.Email,
                     Nom = model.Nom,
                     Prenom = model.Prenom,
-                    client = new Client()
+                    Client = new Client()
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);

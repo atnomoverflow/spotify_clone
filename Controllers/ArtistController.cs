@@ -64,7 +64,7 @@ namespace Spotify_clone2.Controllers
                     Email = model.Email,
                     Nom = model.Nom,
                     Prenom = model.Prenom,
-                    artiste = new Artiste()
+                    Artiste = new Artiste()
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);

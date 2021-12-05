@@ -97,7 +97,6 @@ namespace Spotify_clone2.Controllers
                         description = songData.description,
                         category = songData.Category,
                         songCover = uniqueSongCoverName,
-                        artiste=user.artiste
                     };
                     songs.Add(newSong);
                 }
@@ -156,7 +155,7 @@ namespace Spotify_clone2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("AlbumId,name")] Album album)
         {
-            if (id != album.AlbumId)
+            if (id != album.AlbumID)
             {
                 return NotFound();
             }
@@ -169,7 +168,7 @@ namespace Spotify_clone2.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    bool albumExist = await _albumRepository.AlbumExist(album.AlbumId);
+                    bool albumExist = await _albumRepository.AlbumExist(album.AlbumID);
                     if (!albumExist)
                     {
                         return NotFound();
