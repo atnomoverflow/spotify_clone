@@ -18,5 +18,6 @@ namespace Spotify_clone2.Repositories
         Task<IEnumerable<Song>> getMostPopularSong();
         Task<IEnumerable<Song>> getMostViewsSong();
         Task<IEnumerable<Song>> getMostRecentSong();
+        Task<IEnumerable<Song>> getSongPage(int pageNumber, int pageSize);
     }
 }

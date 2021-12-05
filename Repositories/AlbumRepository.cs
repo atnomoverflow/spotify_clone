@@ -47,7 +47,7 @@ namespace Spotify_clone2.Repositories
             var count = albumSongs.Count();
             albumSongs = albumSongs.Skip(((int)pageNumber - 1) * 6).Take(6);
             var album = await _context.Albums.FirstOrDefaultAsync(x => x.AlbumID == id);
-            album.Artiste = await _context.Artistes.Include("user").FirstOrDefaultAsync(x=>x.ArtisteId==album.ArtisteID);
+            album.Artiste = await _context.Artistes.Include("user").FirstOrDefaultAsync(x => x.ArtisteId == album.ArtisteID);
             album.Songs = await albumSongs.ToListAsync();
             return (album, count);
         }
@@ -58,7 +58,7 @@ namespace Spotify_clone2.Repositories
             albums = albums.Skip(((int)pageNumber - 1) * 6).Take(6);
             var artist = await _context.Artistes.FirstOrDefaultAsync(x => x.ArtisteId == id);
             artist.Albums = await albums.ToListAsync();
-            return (artist , count);
+            return (artist, count);
         }
 
         public async Task<Album> UpdateAsync(Album album)
@@ -68,6 +68,20 @@ namespace Spotify_clone2.Repositories
             _context.Entry(album).Property(u => u.albumCover).IsModified = false;
             await _context.SaveChangesAsync();
             return album;
+        }
+
+        public async Task<IEnumerable<Album>> getAlbumPage(int pageNumber, int pageSize)
+        {
+            var PageNumber = pageNumber < 1 ? 1 : pageNumber;
+            var PageSize = pageSize > 10 ? 10 : pageSize;
+            var albumQuerry = (from album in _context.Albums
+                               select album).Skip(((int)pageNumber - 1) * PageSize).Take(PageSize);
+            var album_result = await albumQuerry.ToListAsync();
+            foreach (var album in album_result)
+            {
+                album.Artiste = await _context.Artistes.FirstOrDefaultAsync(x => x.ArtisteId == album.ArtisteID);
+            }
+            return album_result;
         }
     }
 }

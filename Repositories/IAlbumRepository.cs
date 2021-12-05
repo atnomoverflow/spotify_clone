@@ -15,5 +15,6 @@ namespace Spotify_clone2.Repositories
         Task<Album> CreateAsync(Album album);
         Task DeleteAsync(Album artist);
         Task<bool> AlbumExist(int id);
+        Task<IEnumerable<Album>> getAlbumPage(int pageNumber, int pageSize);
     }
 }

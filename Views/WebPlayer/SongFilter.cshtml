@@ -1,0 +1,275 @@
+﻿@{
+  ViewData["Title"] = "Create";
+  Layout = "~/Views/Shared/_Dashbord.cshtml";
+
+}
+@section Style{
+<link rel="stylesheet" href="~/css/dashbord.css">
+}
+
+<section class="content">
+
+  <div class="content__left">
+
+    <section class="navigation">
+
+
+      <!-- Your Music -->
+      <div class="navigation__list">
+
+        <div class="navigation__list__header" role="button" data-toggle="collapse" href="#yourMusic"
+          aria-expanded="true" aria-controls="yourMusic">
+          checked by
+        </div>
+
+        <div class="collapse in" id="yourMusic">
+
+          <a href='@Url.Action("Filter", new { option = "Songs" })' class="navigation__list__item">
+            <i class="ion-headphone"></i>
+            <span>Songs</span>
+          </a>
+
+          <a href='@Url.Action("Filter", new { option = "Albums" })' class="navigation__list__item">
+            <i class="ion-ios-musical-notes"></i>
+            <span>Albums</span>
+          </a>
+
+          <a href='@Url.Action("Filter", new { option = "Artists" })' class="navigation__list__item">
+            <i class="ion-person"></i>
+            <span>Artists</span>
+          </a>
+
+        </div>
+
+      </div>
+      <!-- / -->
+
+      <!-- Playlists -->
+      <div class="navigation__list">
+
+        <div class="navigation__list__header" role="button" data-toggle="collapse" href="#playlists"
+          aria-expanded="true" aria-controls="playlists">
+          Playlists
+        </div>
+
+        <div class="collapse in" id="playlists">
+
+          <a href="#" class="navigation__list__item">
+            <i class="ion-ios-musical-notes"></i>
+            <span>Doo Wop</span>
+          </a>
+
+          <a href="#" class="navigation__list__item">
+            <i class="ion-ios-musical-notes"></i>
+            <span>Pop Classics</span>
+          </a>
+
+          <a href="#" class="navigation__list__item">
+            <i class="ion-ios-musical-notes"></i>
+            <span>Love $ongs</span>
+          </a>
+
+          <a href="#" class="navigation__list__item">
+            <i class="ion-ios-musical-notes"></i>
+            <span>Hipster</span>
+          </a>
+
+          <a href="#" class="navigation__list__item">
+            <i class="ion-ios-musical-notes"></i>
+            <span>New Music Friday</span>
+          </a>
+
+          <a href="#" class="navigation__list__item">
+            <i class="ion-ios-musical-notes"></i>
+            <span>Techno Poppers</span>
+          </a>
+
+          <a href="#" class="navigation__list__item">
+            <i class="ion-ios-musical-notes"></i>
+            <span>Summer Soothers</span>
+          </a>
+
+          <a href="#" class="navigation__list__item">
+            <i class="ion-ios-musical-notes"></i>
+            <span>Hard Rap</span>
+          </a>
+
+          <a href="#" class="navigation__list__item">
+            <i class="ion-ios-musical-notes"></i>
+            <span>Pop Rap</span>
+          </a>
+
+          <a href="#" class="navigation__list__item">
+            <i class="ion-ios-musical-notes"></i>
+            <span>5 Stars</span>
+          </a>
+
+          <a href="#" class="navigation__list__item">
+            <i class="ion-ios-musical-notes"></i>
+            <span>Dope Dancin</span>
+          </a>
+
+          <a href="#" class="navigation__list__item">
+            <i class="ion-ios-musical-notes"></i>
+            <span>Sleep</span>
+          </a>
+
+        </div>
+
+      </div>
+      <!-- / -->
+
+    </section>
+
+    <section class="playlist">
+
+      <a href="#">
+
+        <i class="ion-ios-plus-outline"></i>
+
+        New Playlist
+
+      </a>
+
+    </section>
+
+    <section class="playing">
+
+      <div class="playing__art">
+
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/7022/cputh.jpg" alt="Album Art" />
+
+      </div>
+
+      <div class="playing__song">
+
+        <a class="playing__song__name">Some Type of Love</a>
+
+        <a class="playing__song__artist">Charlie Puth</a>
+
+      </div>
+
+      <div class="playing__add">
+
+        <i class="ion-checkmark"></i>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="container content__middle" style="padding-top: 50px;">
+    <div class="artist is-verified">
+
+      <div class="artist__content">
+
+        <!-- song -->
+
+        @foreach (var song in @Model)
+        {
+          <div class="card scroll-cards-height">
+            <!-- Card -->
+
+          <div class="card mb-4 mr-2 ml-2">
+              <div class="card-horizontal pt-1 mb-1 ml-1">
+                <!--Card image-->
+              <div class="view overlay">
+
+                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"
+                  alt="Card image cap">
+                  <a href="#" target="_blank">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+
+                </div>
+
+                <!--Card content-->
+              <div class="card-body">
+
+                  <!--Title-->
+                <h6 class="card-title"><a class="text-danger" style="font-weight:bold">Title</a></h6>
+                  <!--Text-->
+                <p class="card-text"></p>
+
+                  <a href="#" class="stretched-link" target="_blank"></a>
+
+                  <div class="card-footer">
+                    <span class="float-left ml-n4">
+                      <a class="mr-1" data-toggle="tooltip" data-placement="top" title="Quick Look">
+                        <i class="fas fa-clock grey-text ml-3"></i>
+                      </a>
+                      46464
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Card -->
+
+            <!-- Card -->
+
+          <div class="card mb-4 mr-2 ml-2">
+              <div class="card-horizontal pt-1 mb-1 ml-1">
+                <!--Card image-->
+              <div class="view overlay">
+
+                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"
+                  alt="Card image cap">
+                  <a href="#" target="_blank">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+
+                </div>
+
+                <!--Card content-->
+              <div class="card-body">
+
+                  <!--Title-->
+                <h6 class="card-title"><a class="text-danger" style="font-weight:bold">Title</a></h6>
+                  <!--Text-->
+                <p class="card-text">My description</p>
+
+                  <a href="#" class="stretched-link" target="_blank"></a>
+
+                  <div class="card-footer">
+                    <span class="float-left ml-n4">
+                      <a class="mr-1" data-toggle="tooltip" data-placement="top" title="Quick Look">
+                        <i class="fas fa-clock grey-text ml-3"></i>
+                      </a>
+                      46464
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Card -->
+
+        </div>
+          <!--/.Card-->
+        }
+      </div>
+    </div>
+
+
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+</section>
+
+<section class="content"></section>
+@section Scripts
+{
+<!-- Audio Player and Initialization -->
+<script src="~/js/jquery.jplayer.min.js"></script>
+<script src="~/js/jplayerInit.js"></script>
+}
