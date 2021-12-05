@@ -37,7 +37,7 @@
                             <span>Songs</span>
                         </a>
 
-                        <a href="#" class="navigation__list__item">
+                        <a href="@Url.Action("Index","Albums")" class="navigation__list__item">
                             <i class="ion-ios-musical-notes"></i>
                             <span>Albums</span>
                         </a>
@@ -45,11 +45,6 @@
                         <a href="#" class="navigation__list__item">
                             <i class="ion-person"></i>
                             <span>Artists</span>
-                        </a>
-
-                        <a href="#" class="navigation__list__item">
-                            <i class="ion-document"></i>
-                            <span>Local Files</span>
                         </a>
 
                     </div>
@@ -118,71 +113,42 @@
         </div>
 
         <div class="content__middle">
-
             <div class="artist is-verified">
-
                 <div class="artist__header">
-
                     <div class="artist__info">
-
                         <div class="profile__img">
-
                             <img src="~/img/@currentUser.avatar" alt="G-Eazy" />
-
                         </div>
-
                         <div class="artist__info__meta">
-
                             <div class="artist__info__type">Artist</div>
-
                             <div class="artist__info__name"> @currentUser.Nom @currentUser.Prenom</div>
-
                             <div class="artist__info__actions">
-
                                 <button class="button-dark">
-                                    <i class="ion-ios-play"></i>
-                                    Play
+                                    @Html.ActionLink("Profile", "profile", "Account", null)
                                 </button>
-
-                                <button class="button-light">Follow</button>
-
-                                <button class="button-light more">
-                                    <i class="ion-ios-more"></i>
-                                </button>
-
                             </div>
-
                         </div>
-
-
                     </div>
 
                     <div class="artist__listeners">
-
                         <div class="artist__listeners__count">15,662,810</div>
-
                         <div class="artist__listeners__label">Monthly Listeners</div>
                     </div>
 
                     <div class="artist__navigation">
-
                         <ul class="nav nav-tabs" role="tablist">
-
                             <li role="presentation" class="active">
                                 <a href="#artist-overview" aria-controls="artist-overview" role="tab" data-toggle="tab">Overview</a>
                             </li>
-
                             <li role="presentation">
                                 <a href="#related-artists" aria-controls="related-artists" role="tab" data-toggle="tab">
                                     Your
                                     Albums
                                 </a>
                             </li>
-
                             <!--<li role="presentation">
                               <a href="#artist-about" aria-controls="artist-about" role="tab" data-toggle="tab">About</a>
                             </li>-->
-
                         </ul>
 
                         <div class="artist__navigation__friends">
@@ -301,7 +267,7 @@
 
                                             <span class="related-artist__img">
 
-                                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/7022/hoodie.jpg" alt="Hoodie Allen" />
+                                                <img src="~/img/album/@album.albumCover" alt="Hoodie Allen" />
 
                                             </span>
 
@@ -871,68 +837,39 @@
                                                 <div class="track">
 
                                                     <div class="track__number">16</div>
-
                                                     <div class="track__added">
-
                                                         <i class="ion-checkmark-round added"></i>
-
                                                     </div>
-
                                                     <div class="track__title featured">
-
                                                         <span class="title">For This</span>
                                                         <span class="feature">Iamnobodi</span>
-
                                                     </div>
-
                                                     <div class="track__explicit">
-
                                                         <span class="label">Explicit</span>
-
                                                     </div>
-
                                                     <div class="track__length">4:11</div>
-
                                                     <div class="track__popularity">
-
                                                         <i class="ion-arrow-graph-up-right"></i>
-
                                                     </div>
-
                                                 </div>
 
                                                 <div class="track">
-
                                                     <div class="track__number">17</div>
-
                                                     <div class="track__added">
-
                                                         <i class="ion-checkmark-round added"></i>
-
                                                     </div>
-
                                                     <div class="track__title featured">
-
                                                         <span class="title">Nothing to Me</span>
                                                         <span class="feature">Keyshia Cole</span>
                                                         <span class="feature">E-40</span>
-
                                                     </div>
-
                                                     <div class="track__explicit">
-
                                                         <span class="label">Explicit</span>
-
                                                     </div>
-
                                                     <div class="track__length">5:30</div>
-
                                                     <div class="track__popularity">
-
                                                         <i class="ion-arrow-graph-up-right"></i>
-
                                                     </div>
-
                                                 </div>
 
                                             </div>
@@ -949,9 +886,7 @@
                         <!-- / -->
                         <!-- Related Artists -->
                         <div role="tabpanel" class="tab-pane" id="related-artists">
-
                             <div class="media-cards">
-
                                 @foreach (var album in Model.Albums)
                                 {
                                 <div class="media-card">
@@ -962,9 +897,7 @@
                                     <a class="media-card__footer">@album.name</a>
                                 </div>
                                 }
-
                             </div>
-
                         </div>
                         <!-- / -->
                         <!-- About // Coming Soon-->
@@ -981,63 +914,7 @@
 
         <div class="content__right">
 
-            <div class="social">
-
-                <div class="friends">
-
-                    <a href="#" class="friend">
-
-                        <i class="ion-android-person"></i>
-
-                        Sam Smith
-
-                    </a>
-
-                    <a href="#" class="friend">
-
-                        <i class="ion-android-person"></i>
-
-                        Tarah Forsyth
-
-                    </a>
-
-                    <a href="#" class="friend">
-
-                        <i class="ion-android-person"></i>
-
-                        Ricahrd Tomkins
-
-                    </a>
-
-                    <a href="#" class="friend">
-
-                        <i class="ion-android-person"></i>
-
-                        Tony Russo
-
-                    </a>
-
-                    <a href="#" class="friend">
-
-                        <i class="ion-android-person"></i>
-
-                        Alyssa Marist
-
-                    </a>
-
-                    <a href="#" class="friend">
-
-                        <i class="ion-android-person"></i>
-
-                        Ron Samson
-
-                    </a>
-
-                </div>
-
-                <button class="button-light">Find Friends</button>
-
-            </div>
+           
 
         </div>
 

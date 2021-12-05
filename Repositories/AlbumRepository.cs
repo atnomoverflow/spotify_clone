@@ -56,7 +56,7 @@ namespace Spotify_clone2.Repositories
             var albums = _context.Albums.Where(x => x.ArtisteID == id);
             var count = albums.Count();
             albums = albums.Skip(((int)pageNumber - 1) * 6).Take(6);
-            var artist = await _context.Artistes.FirstOrDefaultAsync(x => x.ArtisteId == id);
+            var artist = await _context.Artistes.Include("user").FirstOrDefaultAsync(x => x.ArtisteId == id);
             artist.Albums = await albums.ToListAsync();
             return (artist , count);
         }
