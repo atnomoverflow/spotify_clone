@@ -69,6 +69,8 @@ namespace Spotify_clone2.Repositories
             return song;
         }
 
+        
+
         public async Task<IEnumerable<Song>> getMostRecentSong()
         {
             var mostPopularSongQuerry = from song in _context.Songs
@@ -112,6 +114,12 @@ namespace Spotify_clone2.Repositories
                 song.Album = album;
             }
             return result;
+        }
+
+        public async Task<IEnumerable<Song>> GetByAlbumIdAsync(int id)
+        {
+            var Songs = await (from Song in _context.Songs where Song.AlbumId == id select Song).ToListAsync() ;
+            return Songs;
         }
     }
 }

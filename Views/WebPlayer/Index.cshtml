@@ -9,155 +9,8 @@
 <link rel="stylesheet" href="~/css/dashbord.css">
 }
 
-<section class="content">
-
-  <div class="content__left">
-
-    <section class="navigation">
-
-
-      <!-- Your Music -->
-      <div class="navigation__list">
-
-        <div class="navigation__list__header" role="button" data-toggle="collapse" href="#yourMusic"
-          aria-expanded="true" aria-controls="yourMusic">
-          checked by
-        </div>
-
-        <div class="collapse in" id="yourMusic">
-
-          <a href='@Url.Action("SongFilter", new { pageNumber = 1 })' class="navigation__list__item">
-            <i class="ion-headphone"></i>
-            <span>Songs</span>
-          </a>
-
-          <a href='@Url.Action("AlbumFilter", new { pageNumber = 1 })' class="navigation__list__item">
-            <i class="ion-ios-musical-notes"></i>
-            <span>Albums</span>
-          </a>
-
-          <a href='@Url.Action("ArtistFilter", new { pageNumber = 1 })' class="navigation__list__item">
-            <i class="ion-person"></i>
-            <span>Artists</span>
-          </a>
-
-        </div>
-
-      </div>
-      <!-- / -->
-
-      <!-- Playlists -->
-      <div class="navigation__list">
-
-        <div class="navigation__list__header" role="button" data-toggle="collapse" href="#playlists"
-          aria-expanded="true" aria-controls="playlists">
-          Playlists
-        </div>
-
-        <div class="collapse in" id="playlists">
-
-          <a href="#" class="navigation__list__item">
-            <i class="ion-ios-musical-notes"></i>
-            <span>Doo Wop</span>
-          </a>
-
-          <a href="#" class="navigation__list__item">
-            <i class="ion-ios-musical-notes"></i>
-            <span>Pop Classics</span>
-          </a>
-
-          <a href="#" class="navigation__list__item">
-            <i class="ion-ios-musical-notes"></i>
-            <span>Love $ongs</span>
-          </a>
-
-          <a href="#" class="navigation__list__item">
-            <i class="ion-ios-musical-notes"></i>
-            <span>Hipster</span>
-          </a>
-
-          <a href="#" class="navigation__list__item">
-            <i class="ion-ios-musical-notes"></i>
-            <span>New Music Friday</span>
-          </a>
-
-          <a href="#" class="navigation__list__item">
-            <i class="ion-ios-musical-notes"></i>
-            <span>Techno Poppers</span>
-          </a>
-
-          <a href="#" class="navigation__list__item">
-            <i class="ion-ios-musical-notes"></i>
-            <span>Summer Soothers</span>
-          </a>
-
-          <a href="#" class="navigation__list__item">
-            <i class="ion-ios-musical-notes"></i>
-            <span>Hard Rap</span>
-          </a>
-
-          <a href="#" class="navigation__list__item">
-            <i class="ion-ios-musical-notes"></i>
-            <span>Pop Rap</span>
-          </a>
-
-          <a href="#" class="navigation__list__item">
-            <i class="ion-ios-musical-notes"></i>
-            <span>5 Stars</span>
-          </a>
-
-          <a href="#" class="navigation__list__item">
-            <i class="ion-ios-musical-notes"></i>
-            <span>Dope Dancin</span>
-          </a>
-
-          <a href="#" class="navigation__list__item">
-            <i class="ion-ios-musical-notes"></i>
-            <span>Sleep</span>
-          </a>
-
-        </div>
-
-      </div>
-      <!-- / -->
-
-    </section>
-
-    <section class="playlist">
-
-      <a href="#">
-
-        <i class="ion-ios-plus-outline"></i>
-
-        New Playlist
-
-      </a>
-
-    </section>
-
-    <section class="playing">
-
-      <div class="playing__art">
-
-        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/7022/cputh.jpg" alt="Album Art" />
-
-      </div>
-
-      <div class="playing__song">
-
-        <a class="playing__song__name">Some Type of Love</a>
-
-        <a class="playing__song__artist">Charlie Puth</a>
-
-      </div>
-
-      <div class="playing__add">
-
-        <i class="ion-checkmark"></i>
-
-      </div>
-
-    </section>
+   
+    
 
   </div>
 
@@ -170,201 +23,83 @@
         <div class="row">
           <h1
             style='font-size:30px;color: #fff;display: inline-block;max-width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>
-            Most Liked Song
+            Popular Songs
           </h1>
         </div>
         <div style="padding-top:50px;padding-bottom: 50px;" class="row">
-          <div class="col-md-3">
-            <!-- song -->
-
             @foreach (var song in @Model.mostLikesSongs)
             {
-              <div class="music-card__wrapper">
-                <div class="music-card">
-                  <div class="music-card__content" style="padding-bottom: 38px;">
-                    <img class="music-image" src="~/img/songsCover/@song.songCover" alt="">
-                    <div class="music-info">
-                      <h2 class="music-name">@song.nomSong</h2>
-                      <p class="music-artist">@song.Album.Artiste.User.Nom</p>
-                    </div>
-                    <div class="single_player_container">
-                      <div class="single_player">
-                        <div class="jp-jplayer jplayer" data-ancestor=".jp_container_1"
-                        data-url='@Url.Content("~/Song/" + song.songPath)'>
-                        </div>
-                        <div class="jp-audio jp_container_1" role="application" aria-label="media player">
-                          <div class="jp-gui jp-interface">
-                            <!-- Player Controls -->
-                          <div class="player_controls_box">
-                              <button class="jp-prev player_button" tabindex="0"></button>
-                              <button class="jp-play player_button" tabindex="0"></button>
-                              <button class="jp-next player_button" tabindex="0"></button>
-                              <button class="jp-stop player_button" tabindex="0"></button>
-                            </div>
-                          </div>
-                          <!-- Progress Bar -->
-                        <div class="player_bars" style="width: calc(100% - 19px);">
-                            <div class="jp-progress">
-                              <div class="jp-seek-bar">
-                                <div>
-                                  <div class="jp-play-bar">
-                                    <div class="jp-current-time" style="background: #4c4c4c;padding:0px;" role="timer"
-                                    aria-label="time">0:00
-                                    </div>
-                                  </div>
+                <div class="col-md-3">
+                    <!-- song -->
+
+                    <div class="music-card__wrapper">
+                        <div class="music-card">
+                            <div class="music-card__content" style="padding-bottom: 38px;">
+                                <img class="music-image" src="~/img/songsCover/@song.songCover" alt="">
+                                <div class="music-info">
+                                    <h2 class="music-name">@song.nomSong</h2>
+                                    <p class="music-artist">@song.Album.Artiste.User.Nom</p>
                                 </div>
-                              </div>
+                                <div class="single_player_container">
+                                    <div class="single_player">
+                                        <div class="jp-jplayer jplayer" data-ancestor=".jp_container_@song.SongId"
+                                             data-url='@Url.Content("~/Song/" + song.songPath)'>
+                                        </div>
+                                        <div class="jp-audio jp_container_@song.SongId" role="application" aria-label="media player">
+                                            <div class="jp-gui jp-interface">
+                                                <!-- Player Controls -->
+                                                <div class="player_controls_box">
+                                                    <button class="jp-prev player_button" tabindex="0"></button>
+                                                    <button class="jp-play player_button" tabindex="0"></button>
+                                                    <button class="jp-next player_button" tabindex="0"></button>
+                                                    <button class="jp-stop player_button" tabindex="0"></button>
+                                                </div>
+                                            </div>
+                                            <!-- Progress Bar -->
+                                            <div class="player_bars" style="width: calc(100% - 19px);">
+                                                <div class="jp-progress">
+                                                    <div class="jp-seek-bar">
+                                                        <div>
+                                                            <div class="jp-play-bar">
+                                                                <div class="jp-current-time" style="background: #4c4c4c;padding:0px;" role="timer"
+                                                                     aria-label="time">
+                                                                    0:00
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
+                                            </div>
+                                            <div class="jp-no-solution">
+                                                <span>Update Required</span>
+                                                To play the media you will need to either update your browser to a recent version or
+                                                update your <a href="http://get.adobe.com/flashplayer/" target="_blank">
+                                                    Flash
+                                                    plugin
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
-                          </div>
-                          <div class="jp-no-solution">
-                            <span>Update Required</span>
-                            To play the media you will need to either update your browser to a recent version or
-                            update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash
-                              plugin</a>
-                          </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             }
-          </div>
-        </div>
+            </div>
+          
 
-        <div class="row">
-          <h1
-            style='font-size:30px;color: #fff;display: inline-block;max-width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>
-            Most Viewed Song
-          </h1>
-        </div>
         <div style="padding-top:50px;padding-bottom: 50px;" class="row">
-
-
           <div class="col-md-3">
             <!-- song -->
-
-            @foreach (var song in @Model.mostViewsSongs)
-            {
-              <div class="music-card__wrapper">
-                <div class="music-card">
-                  <div class="music-card__content" style="padding-bottom: 38px;">
-                    <img class="music-image" src="~/img/songsCover/@song.songCover" alt="">
-                    <div class="music-info">
-                      <h2 class="music-name">@song.nomSong</h2>
-                      <p class="music-artist">@song.Album.Artiste.User.Nom</p>
-                    </div>
-                    <div class="single_player_container">
-                      <div class="single_player">
-                        <div class="jp-jplayer jplayer" data-ancestor=".jp_container_1"
-                        data-url='@Url.Content("~/Song/" + song.songPath)'>
-                        </div>
-                        <div class="jp-audio jp_container_1" role="application" aria-label="media player">
-                          <div class="jp-gui jp-interface">
-                            <!-- Player Controls -->
-                          <div class="player_controls_box">
-                              <button class="jp-prev player_button" tabindex="0"></button>
-                              <button class="jp-play player_button" tabindex="0"></button>
-                              <button class="jp-next player_button" tabindex="0"></button>
-                              <button class="jp-stop player_button" tabindex="0"></button>
-                            </div>
-                          </div>
-                          <!-- Progress Bar -->
-                        <div class="player_bars" style="width: calc(100% - 19px);">
-                            <div class="jp-progress">
-                              <div class="jp-seek-bar">
-                                <div>
-                                  <div class="jp-play-bar">
-                                    <div class="jp-current-time" style="background: #4c4c4c;padding:0px;" role="timer"
-                                    aria-label="time">0:00
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
-                          </div>
-                          <div class="jp-no-solution">
-                            <span>Update Required</span>
-                            To play the media you will need to either update your browser to a recent version or
-                            update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash
-                              plugin</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            }
           </div>
-        </div>
-
-
-        <div class="row">
-          <h1
-            style='font-size:30px;color: #fff;display: inline-block;max-width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>
-            Most Recent Song
-          </h1>
-        </div>
+        </div>    
         <div style="padding-top:50px;padding-bottom: 50px;" class="row">
           <div class="col-md-3">
             <!-- song -->
 
-            @foreach (var song in @Model.recentSongs)
-            {
-              <div class="music-card__wrapper">
-                <div class="music-card">
-                  <div class="music-card__content" style="padding-bottom: 38px;">
-                    <img class="music-image" src="~/img/songsCover/@song.songCover" alt="">
-                    <div class="music-info">
-                      <h2 class="music-name">@song.nomSong</h2>
-                      <p class="music-artist">@song.Album.Artiste.User.Nom</p>
-                    </div>
-                    <div class="single_player_container">
-                      <div class="single_player">
-                        <div class="jp-jplayer jplayer" data-ancestor=".jp_container_1"
-                        data-url='@Url.Content("~/Song/" + song.songPath)'>
-                        </div>
-                        <div class="jp-audio jp_container_1" role="application" aria-label="media player">
-                          <div class="jp-gui jp-interface">
-                            <!-- Player Controls -->
-                          <div class="player_controls_box">
-                              <button class="jp-prev player_button" tabindex="0"></button>
-                              <button class="jp-play player_button" tabindex="0"></button>
-                              <button class="jp-next player_button" tabindex="0"></button>
-                              <button class="jp-stop player_button" tabindex="0"></button>
-                            </div>
-                          </div>
-                          <!-- Progress Bar -->
-                        <div class="player_bars" style="width: calc(100% - 19px);">
-                            <div class="jp-progress">
-                              <div class="jp-seek-bar">
-                                <div>
-                                  <div class="jp-play-bar">
-                                    <div class="jp-current-time" style="background: #4c4c4c;padding:0px;" role="timer"
-                                    aria-label="time">0:00
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
-                          </div>
-                          <div class="jp-no-solution">
-                            <span>Update Required</span>
-                            To play the media you will need to either update your browser to a recent version or
-                            update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash
-                              plugin</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            }
+         
           </div>
         </div>
       </div>

@@ -455,7 +455,7 @@ body a:hover {
   }
 }
 .artist {
-  height: 617px;
+  height: 800px;
   overflow-y: scroll;
 }
 .artist__header {
@@ -633,7 +633,7 @@ body a:hover {
   line-height: 1;
 }
 .artist__content {
-  padding: 15px;
+  padding: 5px;
 }
 .artist__content .overview {
   display: flex;
@@ -676,7 +676,7 @@ body a:hover {
   }
   .artist__content .overview__related {
     width: 100%;
-    margin-top: 15px;
+    margin-top: 5px;
   }
 }
 @media (max-width: 768px) {

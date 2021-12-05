@@ -47,8 +47,8 @@ namespace Spotify_clone2.Controllers
             ViewBag.avatar = client.avatar;
             return View();
         }
-
-        [Authorize(Roles = "client")]
+        
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> changeUserDetail(ProfileViewModel model)
         {
@@ -64,7 +64,7 @@ namespace Spotify_clone2.Controllers
                 var result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
-                    return View("Profile");
+                    return RedirectToAction("dashboard", "Artist");
                 }
                 foreach (var error in result.Errors)
                 {
@@ -120,7 +120,7 @@ namespace Spotify_clone2.Controllers
                    + Guid.NewGuid().ToString().Substring(0, 4)
                    + Path.GetExtension(fileName);
         }
-        [Authorize(Roles = "client")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> changePassword(ProfileViewModel model)
         {
