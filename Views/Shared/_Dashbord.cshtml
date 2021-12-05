@@ -1,12 +1,23 @@
+@inject Microsoft.AspNetCore.Identity.UserManager<User> UserManager
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@inject Spotify_clone2.Repositories.IClientRepository clientRepository
+@inject Spotify_clone2.Repositories.IArtistRepository artistRepository
+
+@{
+    string currentUserId = UserManager.GetUserId(HttpContextAccessor.HttpContext.User);
+    var currentUser = await UserManager.FindByIdAsync(currentUserId);
+    var currentClient = await clientRepository.GetByUserIdAsync(currentUserId);
+    var currentArtist = artistRepository.getByUserID(currentUserId);
+}
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Template</title>
     <meta charset="UTF-8">
-    <link
-        href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900'
-        rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900'
+          rel='stylesheet' type='text/css'>
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' rel='stylesheet'>
     <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet'>
     <link href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css' rel='stylesheet'>
@@ -19,15 +30,14 @@
     <link href="https://fonts.gstatic.com" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Georama:wght@200;300;500&amp;display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap"
+          rel="stylesheet">
 
     <!-- Stylesheets -->
     @* <link rel="stylesheet" href="~/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="~/css/owl.carousel.min.css" />
-    <link rel="stylesheet" href="~/css/slicknav.min.css" /> *@
+        <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="~/css/owl.carousel.min.css" />
+        <link rel="stylesheet" href="~/css/slicknav.min.css" /> *@
 
     <!-- Main Stylesheets -->
     <link rel="stylesheet" href="~/css/style.css" />
@@ -63,16 +73,16 @@
 
                 <span class="user__info__img">
 
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/7022/adam_proPic.jpg" alt="Profile Picture"
-                        class="img-responsive" />
+                    <img src="~/img/@currentUser.avatar" alt="Profile Picture"
+                         class="img-responsive" />
 
                 </span>
 
                 <span class="user__info__name">
 
-                    <span class="first">Adam</span>
+                    <span class="first">@currentUser.Nom</span>
 
-                    <span class="last">Lowenthal</span>
+                    <span class="last">@currentUser.Prenom</span>
 
                 </span>
 
@@ -82,14 +92,14 @@
 
                 <div class="dropdown">
                     <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="true">
+                            aria-haspopup="true" aria-expanded="true">
                         <i class="ion-chevron-down"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                         <li><a href="#">Private Session</a></li>
                         <li><a href="#">Account</a></li>
                         <li><a href="#">Settings</a></li>
-                        <li><a href="#">Log Out</a></li>
+                        <li>@Html.ActionLink("Logout", "logout", "Account", null)</li>
                     </ul>
                 </div>
 
