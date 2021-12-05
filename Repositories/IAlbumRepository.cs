@@ -11,6 +11,7 @@ namespace Spotify_clone2.Repositories
         Task<IEnumerable<Album>> GetAsync();
         Task<Album> GetByIdAsync(int id);
         Task<(Album,int)> GetPageByIdAsync(int id, int pageNumber);
+        Task<(Artiste, int)> GetAlbumsByIdAsync(int id, int pageNumber);
         Task<Album> CreateAsync(Album album);
         Task DeleteAsync(Album artist);
         Task<bool> AlbumExist(int id);

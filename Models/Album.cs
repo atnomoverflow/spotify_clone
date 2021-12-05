@@ -9,7 +9,6 @@ namespace Spotify_clone2.Models
     {
         public Artiste Artiste { get; set; }
         public int ArtisteID { get; set; }
-
         public int AlbumId { get; set; }
         public string name { get; set; }
         public string albumCover { get; set; }

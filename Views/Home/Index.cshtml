@@ -9,7 +9,6 @@
     var currentUser = await UserManager.FindByIdAsync(currentUserId);
     var currentClient = await clientRepository.GetByUserIdAsync(currentUserId);
     var currentArtist =  artistRepository.getByUserID(currentUserId);
-
 }
 
 @if (!User.Identity.IsAuthenticated)
