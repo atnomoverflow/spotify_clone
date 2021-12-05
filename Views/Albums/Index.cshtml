@@ -259,14 +259,14 @@
                             }
                             else
                             {
-                                <td>@item.AlbumId</td>
+                                <td>@item.AlbumID</td>
                                 <td>@item.name</td>
-                                <td>@item.Artiste.user.Nom</td>
+                                <td>@item.Artiste.User.Nom</td>
                                 <td><a href="#"><img src="~/img/album/@item.albumCover" class="avatar" alt="Avatar" width="80" height="40" style="border-radius: 20%;"></a></td>
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@item.AlbumId" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a> |
-                                    <a asp-action="Details" asp-route-id="@item.AlbumId"><i class="material-icons info">&#xe88e;</i></a> |
-                                    <a asp-action="Delete" asp-route-id="@item.AlbumId" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
+                                    <a asp-action="Edit" asp-route-id="@item.AlbumID" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a> |
+                                    <a asp-action="Details" asp-route-id="@item.AlbumID"><i class="material-icons info">&#xe88e;</i></a> |
+                                    <a asp-action="Delete" asp-route-id="@item.AlbumID" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
                                 </td>
                             }
                             </tr>
