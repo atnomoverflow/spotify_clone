@@ -74,7 +74,6 @@
 
         <ul class="main-menu">
             <li>@Html.ActionLink("Home", "index", "Home", null, new { })</li>
-            <li><a href="#">About</a></li>
             @if (User.Identity.IsAuthenticated)
             {
                 @if ((currentClient == null) && (currentArtist != null))

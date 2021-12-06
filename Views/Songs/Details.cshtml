@@ -1,408 +1,114 @@
 ﻿@model Spotify_clone2.Models.Song
-
 @{
     ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_DetailLayout.cshtml";
+    }
+
+<!-- Category section -->
+<section class="category-section spad">
+    <div class="container-fluid">
+
+        <div class="category-items">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="category-item">
+                        <img src="~/img/album/@Model.songCover" alt="">
+                        <div class="ci-text">
+                            <p>@Model.nomSong</p>
+                        </div>
+                        <a href="artist.html" class="ci-link"><i class="fa fa-play"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Category section end -->
+<!-- Songs section  -->
+<section class="songs-section">
+    <div class="container">
+            <!-- song -->
+            <div class="song-item">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="song-info-box">
+                            <img src="~/img/songsCover/@Model.songCover" alt="">
+                            <div class="song-info">
+                                <h4>@Model.nomSong</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="single_player_container">
+                            <div class="single_player">
+                                <div class="jp-jplayer jplayer" data-ancestor=".jp_container_@Model.SongId"
+                                     data-url='@Url.Content("~/Song/" + Model.songPath)'></div>
+                                <div class="jp-audio jp_container_@Model.SongId" role="application" aria-label="media player">
+                                    <div class="jp-gui jp-interface">
+
+                                        <!-- Player Controls -->
+                                        <div class="player_controls_box">
+                                            <button class="jp-prev player_button" tabindex="0"></button>
+                                            <button class="jp-play player_button" tabindex="0"></button>
+                                            <button class="jp-next player_button" tabindex="0"></button>
+                                            <button class="jp-stop player_button" tabindex="0"></button>
+                                        </div>
+                                        <!-- Progress Bar -->
+                                        <div class="player_bars">
+                                            <div class="jp-progress">
+                                                <div class="jp-seek-bar">
+                                                    <div>
+                                                        <div class="jp-play-bar">
+                                                            <div class="jp-current-time" role="timer" aria-label="time">
+                                                                0:00
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
+                                        </div>
+                                    </div>
+                                    <div class="jp-no-solution">
+                                        <span>Update Required</span>
+                                        To play the media you will need to either update your browser to a recent version or
+                                        update your <a href="http://get.adobe.com/flashplayer/" target="_blank">
+                                            Flash
+                                            plugin
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="songs-links">
+                            <a href=""><img src="~/img/icons/p-1.png" alt=""></a>
+                            <a href=""><img src="~/img/icons/p-2.png" alt=""></a>
+                            <a href=""><img src="~/img/icons/p-3.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="site-pagination pt-5 mt-5">
+            @for (var index = 0; index < @ViewBag.count; index++)
+            {
+                if (@index + 1 == @ViewBag.pageNumber)
+                {
+                    <a href='@Url.Action("Details", new { pageNumber = @index + 1 })' class="active">
+                        0@(index+1).
+                    </a>
+                }
+                else
+                {
+                    <a href='@Url.Action("Details", new { pageNumber = @index+1 })'>0@(index+1).</a>
+                }
+            }
+        </div>
+    </div>
+</section>
+@section Scripts{
+    <!-- Audio Player and Initialization -->
+    <script src="~/js/jquery.jplayer.min.js"></script>
+    <script src="~/js/jplayerInit.js"></script>
 }
-
-<h1>Details</h1>
-
-<div>
-    <h4>Song</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.nomSong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.nomSong)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.category)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.likes)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.likes)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.views)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.views)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.SongId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
-<!-- Player section -->
-	<section class="player-section set-bg" data-setbg="img/player-bg.jpg">
-		<div class="player-box">
-			<div class="tarck-thumb-warp">
-				<div class="tarck-thumb">
-					<img src="img/wave-thumb.jpg" alt="">
-					<button onclick="wavesurfer.playPause();" class="wp-play"></button>
-				</div>
-			</div>
-			<div class="wave-player-warp">
-				<div class="row">
-					<div class="col-lg-8">
-						<div class="wave-player-info">
-							<h2> @Html.DisplayNameFor(model => model.Album)</h2>
-							<p> @Html.DisplayNameFor(model => model.nomSong)</p>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="songs-links">
-							<a href=""><img src="img/icons/p-1.png" alt=""></a>
-							<a href=""><img src="img/icons/p-2.png" alt=""></a>
-							<a href=""><img src="img/icons/p-3.png" alt=""></a>
-						</div>
-					</div>
-				</div>
-				<div id="wavePlayer" class="clierfix">
-					<div id="audiowave" data-waveurl="music-files/8.mp3"></div>
-					<div id="currentTime"></div>
-					<div id="clipTime"></div>
-					<!-- Player Controls -->
-					<div class="wavePlayer_controls">
-						<button class="jp-prev player_button" onclick="wavesurfer.skipBackward();"></button>
-						<button class="jp-play player_button" onclick="wavesurfer.playPause();"></button>
-						<button class="jp-next player_button" onclick="wavesurfer.skipForward();"></button>
-						<button class="jp-stop player_button" onclick="wavesurfer.stop();"></button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Player section end -->
-
-	<!-- Songs details section -->
-	<section class="songs-details-section">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-3">
-					<div class="song-details-box">
-						<h3>Song Details</h3>
-						<ul>
-							<li><strong>Genre:</strong><span> @Html.DisplayNameFor(model => model.category)</span></li>
-							@* <li><strong>Tags:</strong><span>quitar, piano, music, electronic music, minimal, chill music, pop, cultural, live, popular</span></li>
-							<li><strong>Instruments:</strong><span>quitar, piano, drums, bass</span></li> *@
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-9">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="song-details-box">
-								<h3>About the Artist</h3>
-								<div class="artist-details">
-									<img src="img/artist.jpg" alt="">
-									<div class="ad-text">
-										<h5> @Html.DisplayNameFor(model => model.Album.Artiste.User.Nom)</h5>
-										<span>Artist/ Songwriter</span>
-										<p> @Html.DisplayNameFor(model => model.Album.Artiste.bio) </p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="song-details-box">
-								<h3>Most populare song</h3>
-								<!-- song -->
-								<div class="song-item">
-									<div class="row">
-										<div class="col-xl-5 col-lg-12 col-md-5">
-											<div class="song-info-box">
-												<img src="img/songs/1.jpg" alt="">
-												<div class="song-info">
-													<h4>Jennifer Brown</h4>
-													<p>One Night in Ibiza</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-xl-7 col-lg-12 col-md-7">
-											<div class="single_player_container">
-												<div class="single_player">
-													<div class="jp-jplayer jplayer" data-ancestor=".jp_container_1" data-url="music-files/1.mp3"></div>
-													<div class="jp-audio jp_container_1" role="application" aria-label="media player">
-														<div class="jp-gui jp-interface">
-					
-															<!-- Player Controls -->
-															<div class="player_controls_box">
-																<button class="jp-prev player_button" tabindex="0"></button>
-																<button class="jp-play player_button" tabindex="0"></button>
-																<button class="jp-next player_button" tabindex="0"></button>
-																<button class="jp-stop player_button" tabindex="0"></button>
-															</div>
-															<!-- Progress Bar -->
-															<div class="player_bars">
-																<div class="jp-progress">
-																	<div class="jp-seek-bar">
-																		<div>
-																			<div class="jp-play-bar"><div class="jp-current-time" role="timer" aria-label="time">0:00</div></div>
-																		</div>
-																	</div>
-																</div>
-																<div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
-															</div>
-														</div>
-														<div class="jp-no-solution">
-															<span>Update Required</span>
-															To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- song -->
-								<div class="song-item">
-									<div class="row">
-										<div class="col-xl-5 col-lg-12 col-md-5">
-											<div class="song-info-box">
-												<img src="img/songs/2.jpg" alt="">
-												<div class="song-info">
-													<h4>Michael Smith</h4>
-													<p>Dream in colors</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-xl-7 col-lg-12 col-md-7">
-											<div class="single_player_container">
-												<div class="single_player">
-													<div class="jp-jplayer jplayer" data-ancestor=".jp_container_2" data-url="music-files/2.mp3"></div>
-													<div class="jp-audio jp_container_2" role="application" aria-label="media player">
-														<div class="jp-gui jp-interface">
-
-															<!-- Player Controls -->
-															<div class="player_controls_box">
-																<button class="jp-prev player_button" tabindex="0"></button>
-																<button class="jp-play player_button" tabindex="0"></button>
-																<button class="jp-next player_button" tabindex="0"></button>
-																<button class="jp-stop player_button" tabindex="0"></button>
-															</div>
-															<!-- Progress Bar -->
-															<div class="player_bars">
-																<div class="jp-progress">
-																	<div class="jp-seek-bar">
-																		<div>
-																			<div class="jp-play-bar"><div class="jp-current-time" role="timer" aria-label="time">0:00</div></div>
-																		</div>
-																	</div>
-																</div>
-																<div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
-															</div>
-														</div>
-														<div class="jp-no-solution">
-															<span>Update Required</span>
-															To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Songs details section -->
-	
-	<!-- Similar Songs section -->
-	<section class="similar-songs-section">
-		<div class="container-fluid">
-			<h3>Similar Songs</h3>
-			<div class="row">
-				<div class="col-xl-3 col-sm-6">
-					<div class="similar-song">
-						<img class="ss-thumb" src="img/playlist/1.jpg" alt="">
-						<h4>Jennifer Brown</h4>
-						<p>One Night in Ibiza</p>
-						<div class="single_player">
-							<div class="jp-jplayer jplayer" data-ancestor=".jp_container_8" data-url="music-files/3.mp3"></div>
-							<div class="jp-audio jp_container_8" role="application" aria-label="media player">
-								<div class="jp-gui jp-interface">
-									<!-- Player Controls -->
-									<div class="ss-controls">
-										<div class="songs-links">
-											<a href=""><img src="img/icons/p-1.png" alt=""></a>
-											<a href=""><img src="img/icons/p-2.png" alt=""></a>
-											<a href=""><img src="img/icons/p-3.png" alt=""></a>
-										</div>
-										<div class="player_controls_box">
-											<button class="jp-prev player_button" tabindex="0"></button>
-											<button class="jp-play player_button" tabindex="0"></button>
-											<button class="jp-next player_button" tabindex="0"></button>
-											<button class="jp-stop player_button" tabindex="0"></button>
-										</div>
-									</div>
-									<!-- Progress Bar -->
-									<div class="player_bars">
-										<div class="jp-progress">
-											<div class="jp-seek-bar">
-												<div>
-													<div class="jp-play-bar"><div class="jp-current-time" role="timer" aria-label="time">0:00</div></div>
-												</div>
-											</div>
-										</div>
-										<div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
-									</div>
-								</div>
-								<div class="jp-no-solution">
-									<span>Update Required</span>
-									To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-sm-6">
-					<div class="similar-song">
-						<img class="ss-thumb" src="img/playlist/2.jpg" alt="">
-						<h4>Jennifer Brown</h4>
-						<p>One Night in Ibiza</p>
-						<div class="single_player">
-							<div class="jp-jplayer jplayer" data-ancestor=".jp_container_9" data-url="music-files/4.mp3"></div>
-							<div class="jp-audio jp_container_9" role="application" aria-label="media player">
-								<div class="jp-gui jp-interface">
-									<!-- Player Controls -->
-									<div class="ss-controls">
-										<div class="songs-links">
-											<a href=""><img src="img/icons/p-1.png" alt=""></a>
-											<a href=""><img src="img/icons/p-2.png" alt=""></a>
-											<a href=""><img src="img/icons/p-3.png" alt=""></a>
-										</div>
-										<div class="player_controls_box">
-											<button class="jp-prev player_button" tabindex="0"></button>
-											<button class="jp-play player_button" tabindex="0"></button>
-											<button class="jp-next player_button" tabindex="0"></button>
-											<button class="jp-stop player_button" tabindex="0"></button>
-										</div>
-									</div>
-									<!-- Progress Bar -->
-									<div class="player_bars">
-										<div class="jp-progress">
-											<div class="jp-seek-bar">
-												<div>
-													<div class="jp-play-bar"><div class="jp-current-time" role="timer" aria-label="time">0:00</div></div>
-												</div>
-											</div>
-										</div>
-										<div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
-									</div>
-								</div>
-								<div class="jp-no-solution">
-									<span>Update Required</span>
-									To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-sm-6">
-					<div class="similar-song">
-						<img class="ss-thumb" src="img/playlist/3.jpg" alt="">
-						<h4>Jennifer Brown</h4>
-						<p>One Night in Ibiza</p>
-						<div class="single_player">
-							<div class="jp-jplayer jplayer" data-ancestor=".jp_container_10" data-url="music-files/5.mp3"></div>
-							<div class="jp-audio jp_container_10" role="application" aria-label="media player">
-								<div class="jp-gui jp-interface">
-									<!-- Player Controls -->
-									<div class="ss-controls">
-										<div class="songs-links">
-											<a href=""><img src="img/icons/p-1.png" alt=""></a>
-											<a href=""><img src="img/icons/p-2.png" alt=""></a>
-											<a href=""><img src="img/icons/p-3.png" alt=""></a>
-										</div>
-										<div class="player_controls_box">
-											<button class="jp-prev player_button" tabindex="0"></button>
-											<button class="jp-play player_button" tabindex="0"></button>
-											<button class="jp-next player_button" tabindex="0"></button>
-											<button class="jp-stop player_button" tabindex="0"></button>
-										</div>
-									</div>
-									<!-- Progress Bar -->
-									<div class="player_bars">
-										<div class="jp-progress">
-											<div class="jp-seek-bar">
-												<div>
-													<div class="jp-play-bar"><div class="jp-current-time" role="timer" aria-label="time">0:00</div></div>
-												</div>
-											</div>
-										</div>
-										<div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
-									</div>
-								</div>
-								<div class="jp-no-solution">
-									<span>Update Required</span>
-									To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-sm-6">
-					<div class="similar-song">
-						<img class="ss-thumb" src="img/playlist/4.jpg" alt="">
-						<h4>Jennifer Brown</h4>
-						<p>One Night in Ibiza</p>
-						<div class="single_player">
-							<div class="jp-jplayer jplayer" data-ancestor=".jp_container_11" data-url="music-files/7.mp3"></div>
-							<div class="jp-audio jp_container_11" role="application" aria-label="media player">
-								<div class="jp-gui jp-interface">
-									<!-- Player Controls -->
-									<div class="ss-controls">
-										<div class="songs-links">
-											<a href=""><img src="img/icons/p-1.png" alt=""></a>
-											<a href=""><img src="img/icons/p-2.png" alt=""></a>
-											<a href=""><img src="img/icons/p-3.png" alt=""></a>
-										</div>
-										<div class="player_controls_box">
-											<button class="jp-prev player_button" tabindex="0"></button>
-											<button class="jp-play player_button" tabindex="0"></button>
-											<button class="jp-next player_button" tabindex="0"></button>
-											<button class="jp-stop player_button" tabindex="0"></button>
-										</div>
-									</div>
-									<!-- Progress Bar -->
-									<div class="player_bars">
-										<div class="jp-progress">
-											<div class="jp-seek-bar">
-												<div>
-													<div class="jp-play-bar"><div class="jp-current-time" role="timer" aria-label="time">0:00</div></div>
-												</div>
-											</div>
-										</div>
-										<div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
-									</div>
-								</div>
-								<div class="jp-no-solution">
-									<span>Update Required</span>
-									To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Similar Songs section end -->

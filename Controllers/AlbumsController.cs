@@ -97,6 +97,7 @@ namespace Spotify_clone2.Controllers
                         description = songData.description,
                         category = songData.Category,
                         songCover = uniqueSongCoverName,
+                        createdAt = new DateTime()
                     };
                     songs.Add(newSong);
                 }

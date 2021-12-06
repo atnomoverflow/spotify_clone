@@ -106,9 +106,9 @@ else
                         <h2 class="ckYsIr passPrem">Passez à Premium. Faites-vous plaisir.</h2>
                     </div>
                 </div>
-                <a href="#" class="kNMnkF bIHSwp">
+                <a href="" class="kNMnkF bIHSwp">
                     <div class=" ButtonLegacy__ButtonLegacyInner-o653de-0 bJfOgr iNRzte">
-                        <span>Essayez-le maintenant !</span>
+                        <span>@Html.ActionLink("Essayez-le maintenant !", "index", "Premium", null)</span>
                     </div>
                     <div class="ButtonFocus-sc-2hq6ey-0 cIUEfL"></div>
                 </a>
@@ -130,7 +130,7 @@ else
                 <h2 class="biCrdv eJVJbS">Écoutez le meilleur des dernières sorties.</h2>
                 <div class="iEwfBs">
                     <a href="#" class="kNMnkF iNRzte">
-                        <div class="fevbWz">Ouvrir le lecteur web</div>
+                        @Html.ActionLink("Open web player", "index", "WebPlayer", null, new { @class = "fevbWz" })
                     </a>
                 </div>
             </div>

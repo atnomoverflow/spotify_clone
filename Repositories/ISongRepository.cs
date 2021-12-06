@@ -11,6 +11,7 @@ namespace Spotify_clone2.Repositories
     {
         Task<Song> UpdateAsync(Song client);
         Task<IEnumerable<Song>> GetAsync();
+        Task<IEnumerable<Song>> GetByAlbumIdAsync(int id);
         Task<Song> GetBySongIdAsync(int id);
         Task<Song> CreateAsync(Song song);
         Task DeleteAsync(Song Song);
